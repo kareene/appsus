@@ -1,4 +1,5 @@
 import { emailService } from '../services/email.service.js';
+import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js';
 
 export default {
     template: `
@@ -6,23 +7,23 @@ export default {
             <p>{{dateSent}}</p>
             <h3>{{email.subject}}</h3>
             <p>{{email.body}}</p>
-            <section v-if="nextPrevEmailTimestamps">
-                <router-link :to="''+nextPrevEmailTimestamps.prev">Prev</router-link>
-                <router-link :to="''+nextPrevEmailTimestamps.next">Next</router-link>
+            <section v-if="nextPrevEmailIds">
+                <router-link :to="nextPrevEmailIds.prevId">Prev</router-link>
+                <router-link :to="nextPrevEmailIds.nextId">Next</router-link>
             </section>
         </section>
     `,
     data() {
         return {
             email: null,
-            nextPrevEmailTimestamps: null
+            nextPrevEmailIds: null
         }
     },
     created() {
         this.getEmail();
     },
     watch: {
-        '$route.params.timestamp'(to, from) {
+        '$route.params.id'(to, from) {
             this.getEmail();
         }
     },
@@ -33,15 +34,21 @@ export default {
     },
     methods: {
         getEmail() {
-            const timestamp = +this.$route.params.timestamp;
-            emailService.getEmailByTimestamp(timestamp)
+            const id = this.$route.params.id;
+            emailService.getEmailById(id)
                 .then(email => {
                     this.email = email;
                     this.email.isRead = true;
-                    emailService.getNextPrevEmailTimestamps(this.email.sentAt)
-                        .then(nextPrevEmailTimestamps => {
-                            this.nextPrevEmailTimestamps = nextPrevEmailTimestamps;
+                    emailService.getNextPrevEmailIds(this.email.id)
+                        .then(nextPrevEmailIds => {
+                            this.nextPrevEmailIds = nextPrevEmailIds;
+                        })
+                        .catch(err => {
+                            eventBus.$emit(EVENT_SHOW_MSG, { txt: err, type: 'error' });
                         });
+                })
+                .catch(err => {
+                    eventBus.$emit(EVENT_SHOW_MSG, { txt: err, type: 'error' });
                 });
         }
     }

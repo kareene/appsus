@@ -18,8 +18,8 @@ const routes = [
     { path: '/email', component: misterEmail,
         children: [
             { path: '', component: emailList },
-            { path: 'compose/:timestamp?', component: emailCompose },
-            { path: ':timestamp', component: emailDetails }
+            { path: 'compose/:id?', component: emailCompose },
+            { path: ':id', component: emailDetails }
         ] 
     },
 ];
