@@ -8,8 +8,9 @@ export const emailService = {
     getEmailById,
     getNextPrevEmailIds,
     deleteMail,
-    sendEmail,
+    isReadToggle,
     getEmptyEmail,
+    sendEmail,
     saveEmailDraft
 }
 
@@ -37,7 +38,7 @@ function getNextPrevEmailIds(emailId) {
 }
 
 function deleteMail(sentAt) {
-    var idx = emailsDB.find( email => email.sentAt === sentAt);
+    var idx = emailsDB.findIndex( email => email.sentAt === sentAt);
     emailsDB.splice(idx,1);
     utilService.saveToStorage(EMAIL_KEY, emailsDB);
 }
@@ -56,6 +57,12 @@ function saveEmailDraft(email) {
 
 function getEmptyEmail() {
     return Promise.resolve(_createEmail());
+}
+
+function isReadToggle(sentAt){
+    var email = emailsDB.find( email => email.sentAt === sentAt);
+    email.isRead = !email.isRead;
+    utilService.saveToStorage(EMAIL_KEY, emailsDB);
 }
 
 function _createEmails() {
