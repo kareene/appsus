@@ -1,6 +1,6 @@
 export default {
     template: `
-    <li class = "email-preview "   @click= "toggleExpended">
+    <li class = "email-preview "   @click= "toggleExpended" :class = "readStatus">
         <section class = "preview-header flex space-between">
             <h3>{{email.subject}}</h3>
             <p>{{formattedBodyShort}}</p>
@@ -11,6 +11,7 @@ export default {
                 <button>Details</button>
             </router-link>   
             <button @click = "deleteClicked">Remove</button>
+            <button @click.stop = "toggleRead">{{toggleReadTxt}}</button>
             <h3>{{email.subject}}</h3>
             <p>{{formattedBodyLong}}</p> 
 
@@ -22,7 +23,8 @@ export default {
 
     data(){
         return {
-            isExpended : false
+            isExpended : false,
+            
         }
     },
 
@@ -39,13 +41,27 @@ export default {
         },
         previewSize(){
             return (this.isExpended) ? 'expended' : 'small';
+        },
+        toggleReadTxt(){
+            return (this.email.isRead) ? 'mark as unread' : 'mark as read';
+        },
+        readStatus(){
+            return (this.email.isRead) ? 'read': '';
         }
     },
     methods: {
         toggleExpended(){
             console.log("toggle expended")
+            if(!this.email.isRead) this.$emit('read', this.email.sentAt);
             this.isExpended = !this.isExpended;
         },
+
+        toggleRead(){
+            if(!this.email.isRead) this.$emit('read', this.email.sentAt);
+            else this.$emit('unread', this.email.sentAt);
+
+        },
+
         deleteClicked(){
             this.$emit('delete', this.email.sentAt);
         }

@@ -7,7 +7,8 @@ export const emailService = {
     getEmailsForDisplay,
     getEmailByTimestamp,
     getNextPrevEmailTimestamps,
-    deleteMail
+    deleteMail,
+    isReadToggle
 }
 
 function getEmailsForDisplay() {
@@ -32,9 +33,18 @@ function getNextPrevEmailTimestamps(timestamp) {
 
 
 function deleteMail(sentAt){
-    var idx = emailsDB.find( email => email.sentAt === sentAt);
+    var idx = emailsDB.findIndex( email => email.sentAt === sentAt);
     emailsDB.splice(idx,1);
     utilService.saveToStorage(EMAIL_KEY, emailsDB);
+
+}
+
+
+function isReadToggle(sentAt){
+    var email = emailsDB.find( email => email.sentAt === sentAt);
+    email.isRead = !email.isRead;
+    utilService.saveToStorage(EMAIL_KEY, emailsDB);
+
 
 }
 
