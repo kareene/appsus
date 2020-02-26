@@ -8,10 +8,10 @@ export const emailService = {
     getEmailById,
     getNextPrevEmailIds,
     deleteMail,
-    isReadToggle,
     getEmptyEmail,
     sendEmail,
-    saveEmailDraft
+    saveEmailDraft,
+    isReadToggle
 }
 
 function getEmailsForDisplay() {
