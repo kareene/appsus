@@ -8,9 +8,9 @@ export const emailService = {
     getEmailById,
     getNextPrevEmailIds,
     deleteMail,
-    getEmptyEmail,
     sendEmail,
     saveEmailDraft,
+    getEmptyEmail,
     isReadToggle
 }
 

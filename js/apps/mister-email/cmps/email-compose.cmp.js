@@ -1,4 +1,4 @@
-import { emailService } from "../services/email.service";
+import { emailService } from "../services/email.service.js";
 import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js';
 
 
