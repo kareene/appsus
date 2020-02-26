@@ -1,6 +1,10 @@
+import { emailService } from "../services/email.service";
+import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js';
+
+
 export default {
     template: `
-        <section class="email-compose">
+        <section v-if="email" class="email-compose">
             <header>New Message</header>
             <section class="input-container">
                 <input placeholder="To" />
@@ -15,8 +19,31 @@ export default {
             </section>
         </section>
     `,
+    data() {
+        return {
+            email: null,
+            isDeleteDraft: false
+        }
+    },
+    created() {
+        emailService.getEmptyEmail()
+            .then(email => {
+                this.email = email;
+            });
+    },
+    destroyed() {
+        if (!isDeleteDraft) {
+            saveDraft()
+                .then(msg => {
+                    eventBus.$emit(EVENT_SHOW_MSG, { txt: msg, type: 'success' });
+                });
+        }
+    },
     methods: {
-        sendEmail() {},
-        deleteDraft() {}
+        sendEmail() { },
+        deleteDraft() { 
+            this.isDeleteDraft = true;
+        },
+        saveDraft() { }
     }
 };

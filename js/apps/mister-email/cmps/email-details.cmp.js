@@ -4,7 +4,7 @@ import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js
 export default {
     template: `
         <section v-if="email">
-            <p>{{dateSent}}</p>
+            <p>{{formattedTime}}</p>
             <h3>{{email.subject}}</h3>
             <p>{{email.body}}</p>
             <section v-if="nextPrevEmailIds">
@@ -28,8 +28,8 @@ export default {
         }
     },
     computed: {
-        dateSent() {
-            return new Date(this.email.sentAt)
+        formattedTime() {
+            return new Date(this.email.sentAt).toLocaleString();
         }
     },
     methods: {

@@ -7,7 +7,10 @@ export const emailService = {
     getEmailsForDisplay,
     getEmailById,
     getNextPrevEmailIds,
-    deleteMail
+    deleteMail,
+    sendEmail,
+    getEmptyEmail,
+    saveEmailDraft
 }
 
 function getEmailsForDisplay() {
@@ -33,10 +36,26 @@ function getNextPrevEmailIds(emailId) {
     });
 }
 
-function deleteMail(sentAt){
+function deleteMail(sentAt) {
     var idx = emailsDB.find( email => email.sentAt === sentAt);
     emailsDB.splice(idx,1);
     utilService.saveToStorage(EMAIL_KEY, emailsDB);
+}
+
+function sendEmail(email) {
+    email.sentAt = Date.now();
+    email.isSent = true;
+    emailsDB.unshift(email);
+    return Promise.resolve('Email was sent');
+}
+
+function saveEmailDraft(email) {
+    emailsDB.unshift(email);
+    return Promise.resolve('An email draft was saved');
+}
+
+function getEmptyEmail() {
+    return Promise.resolve(_createEmail());
 }
 
 function _createEmails() {
@@ -51,13 +70,14 @@ function _createEmails() {
     return emails;
 }
 
-function _createEmail(subject = '', body = '', sentAt = Date.now()) {
+function _createEmail(subject = '', body = '', sentAt = 0) {
     return {
         id: utilService.makeId(13),
         subject: subject,
         body: body,
         isRead: false,
         isStared: false,
+        isSent: false,
         sentAt: sentAt
     }
 }
