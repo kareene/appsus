@@ -6,8 +6,8 @@ export default {
         <section>
             <h3>Email - List</h3>
             <ul>
-                <router-link :to="'/email/'+email.sentAt" v-for="email in emails"> 
-                    <email-preview :email="email"></car-preview>
+                <router-link :to="'/email/'+email.sentAt" v-for="email in emails" :key="email.sentAt" > 
+                    <email-preview :email="email"></email-preview>
                 
                 </router-link>
             </ul>
