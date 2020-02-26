@@ -1,10 +1,16 @@
 import { emailService } from '../services/email.service.js';
+import emailPreview from './email-preview.cmp.js'
 
 export default {
     template: `
         <section>
-            <h3>List</h3>
-            <pre>{{emails}}</pre>
+            <h3>Email - List</h3>
+            <ul>
+                <router-link :to="'/email/'+email.sentAt" v-for="email in emails"> 
+                    <email-preview :email="email"></car-preview>
+                
+                </router-link>
+            </ul>
         </section>
     `,
     data() {
@@ -17,5 +23,8 @@ export default {
             .then(emails => {
                 this.emails = emails;
             });
+    },
+    components: {
+        emailPreview
     }
 };
