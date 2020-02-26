@@ -1,7 +1,7 @@
 export default {
     template: `
         <section>
-            <h3>Compose</h3>
+            <form>Compose</form>
         </section>
     `
 };

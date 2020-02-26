@@ -14,19 +14,19 @@ function getEmailsForDisplay() {
 }
 
 function getEmailByTimestamp(timestamp) {
-    return Promise.resolve(emailsDB.find(email => email.sentAt === timestamp));
+    return Promise.resolve(emailsDB.find(email => email.sentAt == timestamp));
 }
 
 function getNextPrevEmailTimestamps(timestamp) {
-    const idx = emailsDB.findIndex(email => email.id === timestamp)
-      var nextIdx = idx + 1;
-      if (nextIdx === emails.length) nextIdx = 0;
-      var prevIdx = idx - 1;
-      if (prevIdx < 0) prevIdx = emails.length - 1;
-      return {
-        prevTimestamp: emails[prevIdx].sentAt,
-        nextTimestamp: emails[nextIdx].sentAt
-      }
+    const idx = emailsDB.findIndex(email => email.sentAt === timestamp)
+    var nextIdx = idx + 1;
+    if (nextIdx === emailsDB.length) nextIdx = 0;
+    var prevIdx = idx - 1;
+    if (prevIdx < 0) prevIdx = emailsDB.length - 1;
+    return  Promise.resolve({
+        prev: emailsDB[prevIdx].sentAt,
+        next: emailsDB[nextIdx].sentAt
+    });
 }
 
 function _createEmails() {
@@ -34,7 +34,7 @@ function _createEmails() {
     if (!emails) {
         emails = [];
         for (let i = 0; i < 10; i++) {
-            emails.push(_createEmail(utilService.makeLorem(7), utilService.makeLorem(50), Date.now() + i))
+            emails.push(_createEmail(utilService.makeLorem(7), utilService.makeLorem(200), Date.now() + i))
         }
         utilService.saveToStorage(EMAIL_KEY, emails)
     }

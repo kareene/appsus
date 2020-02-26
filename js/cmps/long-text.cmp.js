@@ -23,7 +23,8 @@ export default {
     },
     computed: {
         abbreviatedTxt() {
-            return this.txt.substring(0, 99);
+            var abbreviatedTxt = this.txt.substring(0, 99)
+            return (abbreviatedTxt + ((this.isLongTxt) ? '...' : ''));
         },
         readMoreLess() {
             return (this.isAbbreviated) ? 'Read More' : 'Read Less';
