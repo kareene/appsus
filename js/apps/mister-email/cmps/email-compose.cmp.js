@@ -1,6 +1,6 @@
 export default {
     template: `
-        <section>
+        <section class="email-compose">
             <h3>compose</h3>
             <form>
                 <input />
