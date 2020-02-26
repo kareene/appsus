@@ -6,7 +6,8 @@ const emailsDB = _createEmails();
 export const emailService = {
     getEmailsForDisplay,
     getEmailByTimestamp,
-    getNextPrevEmailTimestamps
+    getNextPrevEmailTimestamps,
+    deleteMail
 }
 
 function getEmailsForDisplay() {
@@ -28,6 +29,16 @@ function getNextPrevEmailTimestamps(timestamp) {
         next: emailsDB[nextIdx].sentAt
     });
 }
+
+
+function deleteMail(sentAt){
+    var idx = emailsDB.find( email => email.sentAt === sentAt);
+    emailsDB.splice(idx,1);
+    utilService.saveToStorage(EMAIL_KEY, emailsDB);
+
+}
+
+
 
 function _createEmails() {
     var emails = utilService.loadFromStorage(EMAIL_KEY);

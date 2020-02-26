@@ -10,7 +10,7 @@ export default {
             <router-link :to="'/email/'+email.sentAt" > 
                 <button>Details</button>
             </router-link>   
-            <button>Remove</button>
+            <button @click = "deleteClicked">Remove</button>
             <h3>{{email.subject}}</h3>
             <p>{{formattedBodyLong}}</p> 
 
@@ -45,6 +45,9 @@ export default {
         toggleExpended(){
             console.log("toggle expended")
             this.isExpended = !this.isExpended;
+        },
+        deleteClicked(){
+            this.$emit('delete', this.email.sentAt);
         }
 
     }

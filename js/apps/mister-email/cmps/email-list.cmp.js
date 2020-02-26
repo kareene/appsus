@@ -8,7 +8,7 @@ export default {
     template: `
         <section class ="email-list">
             <ul class = "clean-list">
-                <email-preview :email="email"  v-for="email in emails" :key="email.sentAt"></email-preview>
+                <email-preview :email="email"  v-for="email in emails" :key="email.sentAt" @delete= "deleteMail"></email-preview>
             </ul>
         </section>
     `,
@@ -18,6 +18,11 @@ export default {
         }
     },
     
+    methods:{
+        deleteMail(sentAt){
+            emailService.deleteMail(sentAt);
+        }
+    },
 
     created() {
         emailService.getEmailsForDisplay()
