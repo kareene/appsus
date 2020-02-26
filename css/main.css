@@ -1,3 +1,4 @@
 @import "./base.css";
 @import "./helpers.css";
-@import "./nav-bar.css";
+@import "./cmps/nav-bar.css";
+@import "./cmps/user-msg.css";
