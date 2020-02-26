@@ -1,9 +1,21 @@
 export default {
     template: `
-    <li class = "email-preview flex space-between" :class="previewSize"  @click= "toggleExpended">
-        <h3>{{email.subject}}</h3>
-        <p>{{formattedBody}}</p>
-        <p>{{formattedTime}}</p>
+    <li class = "email-preview "   @click= "toggleExpended">
+        <section class = "preview-header flex space-between">
+            <h3>{{email.subject}}</h3>
+            <p>{{formattedBodyShort}}</p>
+            <p>{{formattedTime}}</p>
+        </section>
+        <section class = "expended" v-if = "isExpended">
+            <router-link :to="'/email/'+email.sentAt" > 
+                <button>Details</button>
+            </router-link>   
+            <button>Remove</button>
+            <h3>{{email.subject}}</h3>
+            <p>{{formattedBodyLong}}</p> 
+
+
+        </section>
     </li>`,
     
     props: ['email'],
@@ -19,8 +31,11 @@ export default {
             var date = new Date(this.email.sentAt);
             return date.toLocaleString();
         },
-        formattedBody(){
+        formattedBodyShort(){
             return this.email.body.substring(0,99) + '...';
+        },
+        formattedBodyLong(){
+            return this.email.body.substring(0,300) + '...';
         },
         previewSize(){
             return (this.isExpended) ? 'expended' : 'small';
@@ -31,6 +46,7 @@ export default {
             console.log("toggle expended")
             this.isExpended = !this.isExpended;
         }
+
     }
     
     
