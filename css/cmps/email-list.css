@@ -1,0 +1,13 @@
+.email-list {
+    margin: 15px;
+}
+
+.email-list li{
+    margin-bottom: 20px;
+    padding:10px;
+    border-bottom: 1px solid black;
+}
+
+.expended{
+    height: 200px;
+}
