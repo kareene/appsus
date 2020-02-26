@@ -5,6 +5,7 @@
 .email-list {
     margin: 15px;
     font-size: 0.875rem;
+    width: 80%;
 }
 
 .email-list li{
