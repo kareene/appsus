@@ -1,5 +1,5 @@
 export default {
     template: `
-        <h2>ABOUT</h2>
+        <h2>ABOUT Limor and Kareene</h2>
     `
 };
