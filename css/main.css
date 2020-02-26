@@ -2,4 +2,4 @@
 @import "./helpers.css";
 @import "./cmps/nav-bar.css";
 @import "./cmps/user-msg.css";
-@import "./cmps/email-list.css";
+@import "./apps/mister-email/email-list.css";
