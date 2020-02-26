@@ -7,12 +7,18 @@ export default {
             <p>{{formattedTime}}</p>
         </section>
         <section class = "expended" v-if = "isExpended">
-            <router-link :to="'/email/'+email.sentAt" > 
-                <button>Details</button>
-            </router-link>   
-            <button @click = "deleteClicked">Remove</button>
-            <button @click.stop = "toggleRead">{{toggleReadTxt}}</button>
-            <h3>{{email.subject}}</h3>
+            <div class = "flex space-between">
+                
+                <h3>{{email.subject}}</h3>
+                <div>
+                <router-link :to="'/email/'+email.sentAt" > 
+                    <button class="fas fa-expand"></button>
+                </router-link>   
+                <button @click.stop = "deleteClicked" class = "fas fa-trash-alt"></button>
+                <button @click.stop = "toggleRead" :class = "toggleReadIcon"></button>
+                </div>
+                
+            </div>
             <p>{{formattedBodyLong}}</p> 
 
 
@@ -42,8 +48,8 @@ export default {
         previewSize(){
             return (this.isExpended) ? 'expended' : 'small';
         },
-        toggleReadTxt(){
-            return (this.email.isRead) ? 'mark as unread' : 'mark as read';
+        toggleReadIcon(){
+            return (this.email.isRead) ? 'fas fa-envelope-open' : 'fas fa-envelope';
         },
         readStatus(){
             return (this.email.isRead) ? 'read': '';
