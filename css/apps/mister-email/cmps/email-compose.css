@@ -1,0 +1,48 @@
+.email-compose header {
+    background-color: black;
+    color: white;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+}
+
+.email-compose input, .email-compose textarea {
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+.email-compose input {
+    border-bottom: 1px solid lightgrey;
+}
+
+.email-compose textarea {
+    resize: none;
+    height: 50vh;
+}
+
+.email-compose .button-container {
+    padding: 10px 30px;
+}
+
+.email-compose button {
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    border-radius: 0.2em;
+}
+
+.email-compose .send-btn {
+    color: white;
+    background-color: #1a73e8;
+}
+
+.email-compose .delete-btn {
+    color: grey;
+    background-color: white;
+}
+
+.email-compose .delete-btn:hover {
+    color: black;
+    background-color: lightgrey;
+}

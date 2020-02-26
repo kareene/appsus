@@ -14,3 +14,19 @@ h1, h2, h3, h4, h5, h6, p {
 a:link {
     text-decoration: none;
   }
+
+input {
+    background-color: #fff;
+}
+
+button {
+    font-family: inherit;
+    color: inherit;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-transform: none;
+    cursor: pointer;
+    background-color: #fff;
+}
