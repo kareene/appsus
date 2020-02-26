@@ -18,7 +18,7 @@ const routes = [
     { path: '/email', component: misterEmail,
         children: [
             { path: '', component: emailList },
-            { path: 'compose', component: emailCompose },
+            { path: 'compose/:timestamp?', component: emailCompose },
             { path: ':timestamp', component: emailDetails }
         ] 
     },
