@@ -1,7 +1,11 @@
 export default {
     template: `
         <section>
-            <form>Compose</form>
+            <h3>compose</h3>
+            <form>
+                <input />
+                <textarea></textarea>
+            </form>
         </section>
     `
 };
