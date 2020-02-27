@@ -1,7 +1,6 @@
 import { emailService } from '../services/email.service.js';
-import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js';
+import { eventBus, EVENT_SHOW_MSG ,EVENT_SET_FILTER} from '../../../services/event-bus.service.js';
 import emailPreview from './email-preview.cmp.js'
-import {eventBus, EVENT_SET_FILTER} from '../../../services/event-bus.service.js'
 
 
 
