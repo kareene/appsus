@@ -5,6 +5,10 @@
     padding: 0.5rem;
 }
 
+.email-compose header.draft {
+    color: darkgrey;
+}
+
 .email-compose input, .email-compose textarea {
     width: 100%;
     border: none;
