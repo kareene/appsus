@@ -7,7 +7,7 @@ export const emailService = {
     getEmailsForDisplay,
     getEmailById,
     getNextPrevEmailIds,
-    deleteMail,
+    deleteEmail,
     sendEmail,
     saveEmailDraft,
     getEmptyEmail,
@@ -15,7 +15,7 @@ export const emailService = {
 }
 
 function getEmailsForDisplay() {
-    return Promise.resolve(emailsDB);
+    return Promise.resolve(emailsDB.sort((a,b) => b.sentAt - a.sentAt));
 }
 
 function getEmailById(emailId) {
@@ -37,22 +37,36 @@ function getNextPrevEmailIds(emailId) {
     });
 }
 
-function deleteMail(emailId) {
+function deleteEmail(emailId) {
     var idx = emailsDB.findIndex( email => email.id === emailId);
-    emailsDB.splice(idx,1);
+    if (idx !== -1) {
+        emailsDB.splice(idx, 1);
+        utilService.saveToStorage(EMAIL_KEY, emailsDB);
+    }
+    return Promise.resolve();
+}
+
+function _updateEmail(emailToSave) {
+    var idx = emailsDB.findIndex( email => email.id === emailToSave.id);
+    emailsDB.splice(idx, 1, emailToSave);
     utilService.saveToStorage(EMAIL_KEY, emailsDB);
 }
 
 function sendEmail(email) {
     email.sentAt = Date.now();
     email.isSent = true;
-    emailsDB.unshift(email);
-    return Promise.resolve('Email was sent');
+    _updateEmail(email);
+    return Promise.resolve();
 }
 
-function saveEmailDraft(email) {
-    emailsDB.unshift(email);
-    return Promise.resolve('An email draft was saved');
+function saveEmailDraft(draft) {
+    if (emailsDB.findIndex(email => email.id === draft.id) === -1) {
+        emailsDB.push(draft);
+        utilService.saveToStorage(EMAIL_KEY, emailsDB);
+    } else {
+        _updateEmail(draft);
+    }
+    return Promise.resolve();
 }
 
 function getEmptyEmail() {
@@ -70,16 +84,17 @@ function _createEmails() {
     if (!emails) {
         emails = [];
         for (let i = 0; i < 10; i++) {
-            emails.push(_createEmail(utilService.makeLorem(7), utilService.makeLorem(200), Date.now() + i))
+            emails.push(_createEmail('limorelv@gmail.com' ,utilService.makeLorem(7), utilService.makeLorem(200), Date.now() + i))
         }
         utilService.saveToStorage(EMAIL_KEY, emails)
     }
     return emails;
 }
 
-function _createEmail(subject = '', body = '', sentAt = 0) {
+function _createEmail(name = '', subject = '', body = '', sentAt = 0) {
     return {
         id: utilService.makeId(13),
+        name: name,
         subject: subject,
         body: body,
         isRead: false,

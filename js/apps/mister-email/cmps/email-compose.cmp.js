@@ -5,23 +5,23 @@ export default {
     template: `
         <section v-if="email" class="email-compose">
             <header :class="headerClass">{{headerMsg}}</header>
-            <section class="input-container">
-                <input placeholder="To" />
-                <input v-model="email.subject" placeholder="Subject" />
-                <textarea v-model="email.body" placeholder="Compose email"></textarea>
-            </section>
-            <pre>{{email}}</pre>
-            <section class="button-container flex align-center space-between">
-                <button @click="sendEmail" class="send-btn" title="Send email">Send</button>
-                <button @click="deleteDraft" class="delete-btn" title="Discard draft">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </section>
+            <form class="input-container" @submit.prevent="sendEmail">
+                <input v-model="email.name" type="text" placeholder="To" required @input="debounce(saveDraft, 1000)" />
+                <input v-model="email.subject" type="text" @keydown.enter.prevent placeholder="Subject" @input="debounce(saveDraft, 1000)" />
+                <textarea v-model="email.body" placeholder="Compose email" @input="debounce(saveDraft, 2000)"></textarea>
+                <section class="button-container flex align-center space-between">
+                    <button type="submit" class="send-btn" title="Send email">Send</button>
+                    <button type="button" @click="deleteDraft" class="delete-btn" title="Discard draft">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </section>
+            </form>
         </section>
     `,
     data() {
         return {
             email: null,
+            isSaveDraft: false,
             timeout: null
         }
     },
@@ -31,16 +31,7 @@ export default {
                 this.email = email;
             });
     },
-    destroyed() {
-        if (this.isSaveDraft) {
-            console.log(this.isSaveDraft)
-            this.saveDraft()
-                .then(msg => {
-                    eventBus.$emit(EVENT_SHOW_MSG, { txt: msg, type: 'success' });
-                });
-        }
-    },
-    compted: {
+    computed: {
         headerClass() {
             return (this.isSaveDraft) ? 'draft' : '';
         },
@@ -50,22 +41,34 @@ export default {
     },
     methods: {
         sendEmail() {
-            this.isSaveDraft = false;
+            if (!this.email.name.includes('@')) this.email.name += '@gmail.com';
             emailService.sendEmail(this.email)
-                .then(msg => {
-                    eventBus.$emit(EVENT_SHOW_MSG, { txt: msg, type: 'success' });
-                    // this.router.push('email');
+                .then(() => {
+                    eventBus.$emit(EVENT_SHOW_MSG, { txt: 'Email was sent', type: 'success' });
                 });
+            this.$router.push('/email/');
         },
         deleteDraft() { 
-            this.isSaveDraft = false;
-            // this.router.push('email');
+            emailService.deleteEmail(this.email.id)
+                .then(() => {
+                    eventBus.$emit(EVENT_SHOW_MSG, { txt: 'Draft was discarded', type: 'success' });
+                });
+            this.$router.push('/email/');
         },
         saveDraft() {
-            emailService.saveEmailDraft(this.email)
-                .then(msg => {
-                    eventBus.$emit(EVENT_SHOW_MSG, { txt: msg, type: 'success' });
-                });
+            if (this.email.name || this.email.subject || this.email.body) {
+                emailService.saveEmailDraft(this.email)
+                    .then(() => {
+                        this.isSaveDraft = true;
+                        setTimeout(() => {
+                            this.isSaveDraft = false;
+                        },2000);
+                    });
+            }
+        },
+        debounce(func, time) {
+            if (this.timeout) clearTimeout(this.timeout);
+            this.timeout = setTimeout(func, time);
         }
     }
 };
