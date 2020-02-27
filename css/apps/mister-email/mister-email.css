@@ -1,0 +1,12 @@
+.nav-container{
+    margin:15px;
+}
+.nav-container ul{
+    margin-top: 15px;
+
+}
+
+.nav-container ul li a:hover{
+    cursor: pointer;
+
+}

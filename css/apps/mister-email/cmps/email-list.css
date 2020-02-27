@@ -14,9 +14,10 @@
     border-bottom: 1px solid #b1b1b1
 }
 
-.email-list ul:first-child {
+.email-list ul li:first-child {
     border-top: 1px solid #b1b1b1
 }
+
 
 .email-preview:hover {
     cursor: pointer;

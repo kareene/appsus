@@ -1,5 +1,7 @@
 import { emailService } from '../services/email.service.js';
 import emailPreview from './email-preview.cmp.js'
+import {eventBus, EVENT_SET_FILTER} from '../../../services/event-bus.service.js'
+
 
 
 {/* <router-link :to="'/email/'+email.id" v-for="email in emails" :key="email.id" >  */}
@@ -8,7 +10,7 @@ export default {
     template: `
         <section class ="email-list">
             <ul class = "clean-list">
-                <email-preview :email="email"  v-for="email in emails"
+                <email-preview :email="email"  v-for="email in filteredEmails"
                  
                  :key="email.id" 
                  @read = "markAsRead" 
@@ -20,7 +22,8 @@ export default {
     `,
     data() {
         return {
-            emails: []
+            emails: [],
+            filteredEmails : []
         }
     },
     
@@ -33,8 +36,28 @@ export default {
             emailService.isReadToggle(emailId);
         },
         markAsUnread(emailId){
-            console.log("on unread");
             emailService.isReadToggle(emailId);
+        },
+
+
+        filterEmails(filterBy) {
+            var emails = JSON.parse(JSON.stringify(this.emails))
+            if (filterBy === 'all') this.filteredEmails =  emails;
+            if (filterBy === 'sent'){
+                this.filteredEmails = emails.filter( email => email.isSent)
+            }
+            if (filterBy === 'read'){
+                this.filteredEmails = emails.filter( email => email.isRead )
+            }
+            if (filterBy === 'unread'){
+                this.filteredEmails = emails.filter( email => !email.isRead )
+            }
+
+            if (filterBy === 'draft'){
+                this.filteredEmails = emails.filter( email => !email.sentAt )
+            }
+            
+            console.log("from filter emails", emails)
         }
     },
 
@@ -42,6 +65,10 @@ export default {
         emailService.getEmailsForDisplay()
             .then(emails => {
                 this.emails = emails;
+                eventBus.$on(EVENT_SET_FILTER, (filterBy) => {
+                    this.filterEmails(filterBy)
+                })
+                this.filteredEmails = emails;
             });
     },
     components: {
