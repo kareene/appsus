@@ -37,8 +37,8 @@ function getNextPrevEmailIds(emailId) {
     });
 }
 
-function deleteMail(sentAt) {
-    var idx = emailsDB.findIndex( email => email.sentAt === sentAt);
+function deleteMail(emailId) {
+    var idx = emailsDB.findIndex( email => email.id === emailId);
     emailsDB.splice(idx,1);
     utilService.saveToStorage(EMAIL_KEY, emailsDB);
 }
@@ -59,8 +59,8 @@ function getEmptyEmail() {
     return Promise.resolve(_createEmail());
 }
 
-function isReadToggle(sentAt){
-    var email = emailsDB.find( email => email.sentAt === sentAt);
+function isReadToggle(emailId){
+    var email = emailsDB.find( email => email.id === emailId);
     email.isRead = !email.isRead;
     utilService.saveToStorage(EMAIL_KEY, emailsDB);
 }

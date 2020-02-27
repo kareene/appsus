@@ -2,7 +2,7 @@ import { emailService } from '../services/email.service.js';
 import emailPreview from './email-preview.cmp.js'
 
 
-{/* <router-link :to="'/email/'+email.sentAt" v-for="email in emails" :key="email.sentAt" >  */}
+{/* <router-link :to="'/email/'+email.id" v-for="email in emails" :key="email.id" >  */}
 
 export default {
     template: `
@@ -10,7 +10,7 @@ export default {
             <ul class = "clean-list">
                 <email-preview :email="email"  v-for="email in emails"
                  
-                 :key="email.sentAt" 
+                 :key="email.id" 
                  @read = "markAsRead" 
                  @unread = "markAsUnread"
                  @delete= "deleteMail">
@@ -25,16 +25,16 @@ export default {
     },
     
     methods:{
-        deleteMail(sentAt){
-            emailService.deleteMail(sentAt);
+        deleteMail(emailId){
+            emailService.deleteMail(emailId);
         },
-        markAsRead(sentAt){
+        markAsRead(emailId){
             console.log("on read")
-            emailService.isReadToggle(sentAt);
+            emailService.isReadToggle(emailId);
         },
-        markAsUnread(sentAt){
+        markAsUnread(emailId){
             console.log("on unread");
-            emailService.isReadToggle(sentAt);
+            emailService.isReadToggle(emailId);
         }
     },
 

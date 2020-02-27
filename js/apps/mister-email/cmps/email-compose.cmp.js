@@ -1,16 +1,16 @@
 import { emailService } from "../services/email.service.js";
 import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js';
 
-
 export default {
     template: `
         <section v-if="email" class="email-compose">
-            <header>New Message</header>
+            <header :class="headerClass">{{headerMsg}}</header>
             <section class="input-container">
                 <input placeholder="To" />
-                <input placeholder="Subject" />
-                <textarea placeholder="Compose email"></textarea>
+                <input v-model="email.subject" placeholder="Subject" />
+                <textarea v-model="email.body" placeholder="Compose email"></textarea>
             </section>
+            <pre>{{email}}</pre>
             <section class="button-container flex align-center space-between">
                 <button @click="sendEmail" class="send-btn" title="Send email">Send</button>
                 <button @click="deleteDraft" class="delete-btn" title="Discard draft">
@@ -22,7 +22,7 @@ export default {
     data() {
         return {
             email: null,
-            isDeleteDraft: false
+            timeout: null
         }
     },
     created() {
@@ -32,18 +32,40 @@ export default {
             });
     },
     destroyed() {
-        if (!isDeleteDraft) {
-            saveDraft()
+        if (this.isSaveDraft) {
+            console.log(this.isSaveDraft)
+            this.saveDraft()
                 .then(msg => {
                     eventBus.$emit(EVENT_SHOW_MSG, { txt: msg, type: 'success' });
                 });
         }
     },
-    methods: {
-        sendEmail() { },
-        deleteDraft() { 
-            this.isDeleteDraft = true;
+    compted: {
+        headerClass() {
+            return (this.isSaveDraft) ? 'draft' : '';
         },
-        saveDraft() { }
+        headerMsg() {
+            return (this.isSaveDraft) ? 'Draft saved' : 'New Message';
+        }
+    },
+    methods: {
+        sendEmail() {
+            this.isSaveDraft = false;
+            emailService.sendEmail(this.email)
+                .then(msg => {
+                    eventBus.$emit(EVENT_SHOW_MSG, { txt: msg, type: 'success' });
+                    // this.router.push('email');
+                });
+        },
+        deleteDraft() { 
+            this.isSaveDraft = false;
+            // this.router.push('email');
+        },
+        saveDraft() {
+            emailService.saveEmailDraft(this.email)
+                .then(msg => {
+                    eventBus.$emit(EVENT_SHOW_MSG, { txt: msg, type: 'success' });
+                });
+        }
     }
 };

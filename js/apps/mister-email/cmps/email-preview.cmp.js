@@ -11,7 +11,7 @@ export default {
                 
                 <h3>{{email.subject}}</h3>
                 <div>
-                <router-link :to="'/email/'+email.sentAt" > 
+                <router-link :to="'/email/'+email.id" > 
                     <button class="fas fa-expand"></button>
                 </router-link>   
                 <button @click.stop = "deleteClicked" class = "fas fa-trash-alt"></button>
@@ -58,18 +58,18 @@ export default {
     methods: {
         toggleExpended(){
             console.log("toggle expended")
-            if(!this.email.isRead) this.$emit('read', this.email.sentAt);
+            if(!this.email.isRead) this.$emit('read', this.email.id);
             this.isExpended = !this.isExpended;
         },
 
         toggleRead(){
-            if(!this.email.isRead) this.$emit('read', this.email.sentAt);
-            else this.$emit('unread', this.email.sentAt);
+            if(!this.email.isRead) this.$emit('read', this.email.id);
+            else this.$emit('unread', this.email.id);
 
         },
 
         deleteClicked(){
-            this.$emit('delete', this.email.sentAt);
+            this.$emit('delete', this.email.id);
         }
 
     }
