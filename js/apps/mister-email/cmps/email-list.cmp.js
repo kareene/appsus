@@ -1,8 +1,9 @@
 import { emailService } from '../services/email.service.js';
+import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js';
 import emailPreview from './email-preview.cmp.js'
 
 
-{/* <router-link :to="'/email/'+email.id" v-for="email in emails" :key="email.id" >  */}
+{/* <router-link :to="'/email/'+email.id" v-for="email in emails" :key="email.id" >  */ }
 
 export default {
     template: `
@@ -13,7 +14,7 @@ export default {
                  :key="email.id" 
                  @read = "markAsRead" 
                  @unread = "markAsUnread"
-                 @delete= "deleteMail">
+                 @delete= "deleteEmail">
                  </email-preview>
             </ul>
         </section>
@@ -23,16 +24,19 @@ export default {
             emails: []
         }
     },
-    
-    methods:{
-        deleteMail(emailId){
-            emailService.deleteMail(emailId);
+
+    methods: {
+        deleteEmail(emailId) {
+            emailService.deleteEmail(emailId)
+                .then(() => {
+                    eventBus.$emit(EVENT_SHOW_MSG, { txt: 'Email was deleted', type: 'success' });
+                });
         },
-        markAsRead(emailId){
+        markAsRead(emailId) {
             console.log("on read")
             emailService.isReadToggle(emailId);
         },
-        markAsUnread(emailId){
+        markAsUnread(emailId) {
             console.log("on unread");
             emailService.isReadToggle(emailId);
         }
