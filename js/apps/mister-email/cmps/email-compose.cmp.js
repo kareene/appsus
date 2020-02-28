@@ -4,11 +4,14 @@ import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js
 export default {
     template: `
         <section v-if="email" class="email-compose">
-            <header :class="headerClass">{{headerMsg}}</header>
+            <header :class="headerClass" class="flex align-center space-between" >
+                <h3>{{headerMsg}}</h3>
+                <button @click="exitCompose" class="exit-btn"><i class="fas fa-times"></i></button>
+            </header>
             <form class="input-container" @submit.prevent="sendEmail">
                 <input v-model="email.name" type="text" placeholder="To" required @input="debounce(saveDraft, 1000)" />
                 <input v-model="email.subject" type="text" @keydown.enter.prevent placeholder="Subject" @input="debounce(saveDraft, 1000)" />
-                <textarea v-model="email.body" placeholder="Compose email" @input="debounce(saveDraft, 2000)"></textarea>
+                <textarea v-model="email.body" placeholder="Compose email" @input="debounce(saveDraft, 1000)"></textarea>
                 <section class="button-container flex align-center space-between">
                     <button type="submit" class="send-btn" title="Send email">Send</button>
                     <button type="button" @click="deleteDraft" class="delete-btn" title="Discard draft">
@@ -65,6 +68,10 @@ export default {
                         },2000);
                     });
             }
+        },
+        exitCompose() {
+            this.saveDraft();
+            this.$router.push('/email/');
         },
         debounce(func, time) {
             if (this.timeout) clearTimeout(this.timeout);
