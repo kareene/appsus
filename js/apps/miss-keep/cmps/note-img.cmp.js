@@ -1,6 +1,6 @@
 export default {
     template: `
-        <article>
+        <article class = "note-item">
             <img :src="info.url" :title="info.title" />
         </article>
     `,
