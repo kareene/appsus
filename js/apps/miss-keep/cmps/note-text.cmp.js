@@ -1,13 +1,8 @@
 export default {
     template: `
         <article>
-            <textarea v-model="txt" placeholder="What's on your mind..."></textarea>
+            <p>{{info.txt}}</p>
         </article>
     `,
-    props: ['info'],
-    data() {
-        return {
-            txt: ''
-        }
-    }
+    props: ['info']
 }
