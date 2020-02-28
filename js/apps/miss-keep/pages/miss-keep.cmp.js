@@ -10,9 +10,23 @@ export default {
         <section class="miss-keep-container">
             <h2>MISS KEEP</h2>
             <note-add></note-add>
-            <ul v-if="notes" class="note-list clean-list">
-                <li v-for="note in notes" class="note-item">
-                    <button @click="deleteNote(note.id)">&times;</button>
+            <div v-if="pinnedNotes.length" class="list-lable">Pinned</div>
+            <ul v-if="pinnedNotes.length" class="note-list clean-list">
+                <li v-for="note in pinnedNotes" class="note-item" 
+                :class="{ marked: note.isMarked, pinned: note.isPinned }">
+                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)">pin</button>
+                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)">mark</button>
+                    <button class="delete-note-btn" @click="deleteNote(note.id)">&times;</button>
+                    <component :is="note.type" :info="note.info" @save="saveNote(note)"></component>
+                </li>
+            </ul>
+            <div v-if="pinnedNotes.length && unPinnedNotes.length" class="list-lable">Others</div>
+            <ul v-if="unPinnedNotes.length" class="note-list clean-list">
+                <li v-for="note in unPinnedNotes" class="note-item" 
+                :class="{ marked: note.isMarked, pinned: note.isPinned }">
+                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)">pin</button>
+                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)">mark</button>
+                    <button class="delete-note-btn" @click="deleteNote(note.id)">&times;</button>
                     <component :is="note.type" :info="note.info" @save="saveNote(note)"></component>
                 </li>
             </ul>
@@ -29,9 +43,16 @@ export default {
                 this.notes = notes;
             });
     },
+    computed: {
+        pinnedNotes() {
+            return this.notes.filter(note => note.isPinned);
+        },
+        unPinnedNotes() {
+            return this.notes.filter(note => !note.isPinned);
+        }
+    },
     methods: {
         deleteNote(noteId) {
-            console.log(noteId)
             noteService.deleteNote(noteId)
                 .then(() => {
                     console.log('note deleted')
@@ -41,6 +62,12 @@ export default {
             noteService.updateNote(note)
                 .then(() => {
                     console.log('note saved')
+                })
+        },
+        noteToggler(target, noteId) {
+            noteService.noteToggler(target, noteId)
+                .then(() => {
+                    console.log('toggle', target);
                 })
         }
     },

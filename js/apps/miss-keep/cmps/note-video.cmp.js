@@ -3,7 +3,10 @@ export default {
         <article class="note-video">
             <p v-if="info.title" class="title">{{info.title}}</p>
             <div v-if="info.url" class="video-container" ref="videoContainer">
-                <iframe  :width="iframeWidth" :height="iframeHeight" :src="info.url" frameborder="0" allowfullscreen></iframe>
+                <iframe  :width="iframeWidth" :height="iframeHeight" 
+                    :src="info.url" frameborder="0"  allowfullscreen
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                ></iframe>
             </div>
             <p v-else>Sorry, something went wrong while loding the video.</p>
         </article>

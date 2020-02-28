@@ -9,7 +9,8 @@ export const noteService = {
     getEmptyNote,
     addNote,
     updateNote,
-    deleteNote
+    deleteNote,
+    noteToggler
 }
 
 function getNotesForDisplay() {
@@ -57,6 +58,15 @@ function deleteNote(noteId) {
         notesDB.splice(idx, 1);
         utilService.saveToStorage(NOTE_KEY, notesDB);
     }
+    return Promise.resolve();
+}
+
+function noteToggler(target, noteId) {
+    var note = notesDB.find(note => note.id === noteId);
+    if (!note) return Promise.reject('Something bad happened');
+    if (target === 'mark') note.isMarked = !note.isMarked;
+    else note.isPinned = !note.isPinned;
+    utilService.saveToStorage(NOTE_KEY, notesDB);
     return Promise.resolve();
 }
 
