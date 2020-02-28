@@ -10,7 +10,7 @@ export default {
         <section>
             <h2>MISS KEEP</h2>
             <note-add></note-add>
-            <ul v-if="notes" class="note-list clean-list flex">
+            <ul v-if="notes" class="note-list clean-list">
                 <li v-for="note in notes">
                     <component :is="note.type" :info="note.info"></component>
                 </li>

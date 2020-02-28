@@ -7,5 +7,9 @@
 @import "./apps/mister-email/cmps/email-compose.css";
 @import "./apps/mister-email/cmps/email-list.css";
 @import "./apps/mister-email/mister-email.css";
+<<<<<<< HEAD
 @import "./apps/miss-keep/miss-keep.css";
 @import "./apps/miss-keep/cmps/note-video.css";
+=======
+@import "./apps/miss-keep/miss-keep.css"
+>>>>>>> 6f05924c22ba957aefc6238838f0874ffbb8e581
