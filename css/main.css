@@ -6,4 +6,6 @@
 @import "./cmps/user-msg.css";
 @import "./apps/mister-email/cmps/email-compose.css";
 @import "./apps/mister-email/cmps/email-list.css";
-@import "./apps/mister-email/mister-email.css"
+@import "./apps/mister-email/mister-email.css";
+@import "./apps/miss-keep/miss-keep.css";
+@import "./apps/miss-keep/cmps/note-video.css";
