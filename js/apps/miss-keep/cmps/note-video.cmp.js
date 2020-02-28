@@ -1,9 +1,9 @@
 export default {
     template: `
         <article class="note-video">
-            <h3>{{info.title}}</h3>
-            <div v-if="videoUrl" class="video-container">
-                <iframe :src="videoUrl" frameborder="0" allowfullscreen></iframe>
+            <p v-if="info.title" class="title">{{info.title}}</p>
+            <div v-if="info.url" class="video-container" ref="videoContainer">
+                <iframe  :width="iframeWidth" :height="iframeHeight" :src="info.url" frameborder="0" allowfullscreen></iframe>
             </div>
             <p v-else>Sorry, something went wrong while loding the video.</p>
         </article>
@@ -11,20 +11,25 @@ export default {
     props: ['info'],
     data() {
         return {
-            videoUrl: ''
+            iframeWidth: 0,
+            iframeHeight: 0
         }
     },
     created() {
-        const videoId = this.getYoutubeVideoId(this.info.url);
-        this.videoUrl = (videoId) ? `https://www.youtube.com/embed/${videoId}` : '';
+        window.addEventListener("resize", this.resizeIframe);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.resizeIframe);
+    },
+    mounted() {
+        this.resizeIframe();
     },
     methods: {
-        getYoutubeVideoId(url) {
-            console.log(url)
-            // RegEx by Stephan Schmitz <eyecatchup@gmail.com>
-            // https://stackoverflow.com/a/10315969/624466
-            const youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-            return url.match(youtubeRegex)[1];
+        resizeIframe() {
+            this.iframeWidth = this.$refs.videoContainer.clientWidth;
+            this.iframeHeight = this.iframeWidth * 0.5625;
         }
     }
 }
+
+{/* <iframe width="560" height="315" src="https://www.youtube.com/embed/PkLHN3Mujw8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}

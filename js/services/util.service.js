@@ -3,7 +3,8 @@ export const utilService = {
     makeId,
     makeLorem,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    getYoutubeVideoId
 }
 
 function getRandomInt(min, max) {
@@ -58,4 +59,11 @@ function saveToStorage(key, any) {
 function loadFromStorage(key) {
     var str = localStorage[key] || 'null';
     return JSON.parse(str);
+}
+
+function getYoutubeVideoId(url) {
+    // RegEx by Stephan Schmitz <eyecatchup@gmail.com>
+    // https://stackoverflow.com/a/10315969/624466
+    const youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    return url.match(youtubeRegex)[1];
 }
