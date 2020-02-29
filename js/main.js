@@ -7,8 +7,8 @@ new Vue({
     router,
     template: `
     <section>
-        <h1>APPSUS</h1>
-        <header>
+        <header class = "appsus-header flex space-between align-center">
+            <h1>APPSUS</h1>
             <nav-bar></nav-bar>
         </header>
         <user-msg></user-msg>

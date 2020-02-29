@@ -2,6 +2,9 @@
     margin-bottom: 15px;
 }
 
+.nav-container{
+    width: 20%
+}
 
 
 .compose{
@@ -29,19 +32,22 @@
     padding-bottom: 5px;
     padding-top: 5px;
     padding-left: 7px;
-    color: #737070
+    color: #737070;
+  
 }
 
 .nav-bar li a:hover {
-    background-color: #ef757547;
-    color: #d93025;
+    background-color: #eaa27a57;
+    color: #e06146;
     border-radius: 15px;
 
 }
 
+
+
 .nav-bar li .router-link-exact-active{
     border-radius: 15px;
-    background-color: #ef757547;
-    color: #d93025;
+    background-color: #eaa27a57;
+    color: #e06146;
     font-family: Roboto-Bold;
 }

@@ -3,14 +3,21 @@ import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js
 
 export default {
     template: `
-        <section v-if="email">
-            <p>{{formattedTime}}</p>
-            <h3>{{email.subject}}</h3>
-            <p>{{email.body}}</p>
-            <section v-if="nextPrevEmailIds">
-                <router-link :to="nextPrevEmailIds.prevId">Prev</router-link>
-                <router-link :to="nextPrevEmailIds.nextId">Next</router-link>
-            </section>
+        <section class = "email-details flex direction-column" v-if="email">
+        <section class ="mail-pagination"v-if="nextPrevEmailIds">
+        <router-link :to="nextPrevEmailIds.prevId"><small><i class="fas fa-chevron-left"></i> Prev </samll></router-link>
+        <router-link :to="nextPrevEmailIds.nextId"><small>Next <i class="fas fa-chevron-right"></i></small></router-link>
+    </section>
+            <h2>{{email.subject}}</h2>
+            <div class = "small-info flex space-between">
+                <small>{{email.name}}</small>
+                <small>{{formattedTime}}</small>
+            </div>
+            <div class = "mail-body flex direction-column space-between">    
+                <p>{{email.body}}</p>
+               
+            </div>
+            
         </section>
     `,
     data() {
