@@ -23,7 +23,7 @@ export default {
     data() {
         return {
             emails: [],
-            filteredEmails : []
+            filteredEmails : [],
         }
     },
 
@@ -35,46 +35,67 @@ export default {
                 });
         },
         markAsRead(emailId) {
-            console.log("on read")
+            console.log("mark red")
             emailService.isReadToggle(emailId);
+            var email = this.filteredEmails.find(email =>email.id === emailId);
+            email.isRead = !email.isRead;
+            console.log(email)
+            // readEmail.isRead = !readEmail.isRead;
         },
 
         markAsUnread(emailId){
+            console.log("mark unred")
 
             emailService.isReadToggle(emailId);
+            var email = this.filteredEmails.find(email =>email.id === emailId);
+            email.isRead = !email.isRead;
+            console.log(email)
+
         },
 
 
-        filterEmails(filterBy) {
+        filterEmails() {
             var emails = JSON.parse(JSON.stringify(this.emails))
-            if (filterBy === 'all') this.filteredEmails =  emails;
-            if (filterBy === 'sent'){
+            if (this.filterBy === 'all' || !this.filterBy) this.filteredEmails =  emails;
+            if (this.filterBy === 'sent'){
                 this.filteredEmails = emails.filter( email => email.isSent)
             }
-            if (filterBy === 'read'){
+            if (this.filterBy === 'read'){
                 this.filteredEmails = emails.filter( email => email.isRead )
             }
-            if (filterBy === 'unread'){
+            if (this.filterBy === 'unread'){
                 this.filteredEmails = emails.filter( email => !email.isRead )
             }
 
-            if (filterBy === 'draft'){
+            if (this.filterBy === 'draft'){
                 this.filteredEmails = emails.filter( email => !email.sentAt )
             }
             
-            console.log("from filter emails", emails)
         }
     },
+
+    
 
     created() {
         emailService.getEmailsForDisplay()
             .then(emails => {
                 this.emails = emails;
-                eventBus.$on(EVENT_SET_FILTER, (filterBy) => {
-                    this.filterEmails(filterBy)
-                })
-                this.filteredEmails = emails;
+                // this.filteredEmails = emails;
+                const params = window.location.hash.split("?")[1]
+                console.log(params)
+                if (params) this.filterBy = params.split("=")[1];
+                this.filterEmails()
+               
             });
+    },
+
+    watch: {
+        '$route'(to,from){
+            const params = window.location.hash.split("?")[1]
+            if (params) this.filterBy = params.split("=")[1];
+            this.filterEmails()
+
+        }
     },
     components: {
         emailPreview

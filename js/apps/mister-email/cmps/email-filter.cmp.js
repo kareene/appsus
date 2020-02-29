@@ -1,40 +1,39 @@
 import { eventBus, EVENT_SET_FILTER } from '../../../services/event-bus.service.js';
 export default {
+    // <router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
     template: `
             <ul class = "nav-bar clean-list">
                 <li>
-                    <a @click = "emitFilter('all')">Inbox</a>
+                    <router-link :to = "{path: '/email', query: {filterBy: 'all'}}"  ><i class="fas fa-inbox"></i> Inbox</router-link>
                 </li>
                 <li>
-                    <a @click = "emitFilter('sent')">Sent</a>
+                <router-link :to = "{path: '/email', query: {filterBy: 'sent'}}"><i class="fas fa-paper-plane"></i> Sent</router-link>
                 </li>
                 <li>
-                    <a @click = "emitFilter('read')">Read</a>
+                <router-link :to = "{path: '/email', query: {filterBy: 'read'}}"><i class="fas fa-envelope-open"></i> Read</router-link>
                 </li>
                 <li>
-                    <a @click = "emitFilter('unread')">Unread</a>
+                <router-link :to = "{path: '/email', query: {filterBy: 'unread'}}"><i class="fas fa-envelope"></i> Unread</router-link>
                 </li>
                 <li>
-                    <a @click = "emitFilter('Draft')">Draft</a>
+                    <a @click = "emitFilter('Draft')"><i class="fas fa-sticky-note"></i> Draft</a>
                 </li>
                 <li>
-                    <a @click = "emitFilter('Stared')">Stared</a>
+                    <a @click = "emitFilter('Stared')"><i class="far fa-star"></i> Stared</a>
                 </li>
             </ul>`,
             
-            // data(){
-            //     return {
-            //         filterBy = ''
-            //     }
-            // },
+            
 
             methods: {
                 emitFilter(filterBy){
                     eventBus.$emit(EVENT_SET_FILTER, filterBy);
                     console.log("emit-filter", filterBy);
                     // this.$emit('set-filter', filterBy)
+                },
+                filterClicked(){
+                    console.log("clicked filter");
                 }
-            }
-    
+            },    
 
 };

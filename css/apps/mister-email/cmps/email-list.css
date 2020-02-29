@@ -35,6 +35,15 @@
     padding: 20px
 }
 
+.email-preview.unread .name, .email-preview.unread .subject{
+    font-family: Roboto-Bold;
+}
+
+.unread{
+    background-color: white;
+
+}
+
 .expended{
     height: 200px;
     background-color: rgb(255, 255, 255);
