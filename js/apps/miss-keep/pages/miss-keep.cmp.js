@@ -1,40 +1,17 @@
-import {noteService} from "../services/note.service.js"
-import noteTxt from "../cmps/note-txt.cmp.js"
-import noteImg from "../cmps/note-img.cmp.js"
-import noteVideo from "../cmps/note-video.cmp.js"
-import noteTodos from "../cmps/note-todos.cmp.js"
+import { noteService } from "../services/note.service.js";
+import { eventBus, SAVE_NOTES, DELETE_NOTE, CHANGE_NOTE_STYLE } from '../../../services/event-bus.service.js';
 import noteAdd from "../cmps/note-add.cmp.js"
-import colorPicker from "../cmps/color-picker.cmp.js"
+import noteList from "../cmps/note-list.cmp.js"
 
 export default {
     template: `
         <section class="miss-keep-container">
             <h2>MISS KEEP</h2>
             <note-add></note-add>
-            <div v-if="pinnedNotes.length" class="list-lable">Pinned</div>
-            <ul v-if="pinnedNotes.length" class="note-list clean-list">
-                <li v-for="note in pinnedNotes" class="note-item"
-                :class="{ marked: note.isMarked, pinned: note.isPinned }"
-                :style="{ backgroundColor: note.color }">
-                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)"><i class="fas fa-thumbtack"></i></button>
-                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)"><i class="fas fa-check-circle"></i></button>
-                    <button class="delete-note-btn" @click="deleteNote(note.id)"><i class="fas fa-times"></i></button>
-                    <component :is="note.type" :info="note.info" @save="saveNote(note)"></component> 
-                    <color-picker :currColor="note.color" @color="changeNoteColor($event, note.id)"></color-picker>
-                </li>
-            </ul>
-            <div v-if="pinnedNotes.length && unPinnedNotes.length" class="list-lable">Others</div>
-            <ul v-if="unPinnedNotes.length" class="note-list clean-list">
-                <li v-for="note in unPinnedNotes" class="note-item" 
-                :class="{ marked: note.isMarked, pinned: note.isPinned }"
-                :style="{ backgroundColor: note.color }">
-                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)"><i class="fas fa-thumbtack"></i></button>
-                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)"><i class="fas fa-check-circle"></i></button>
-                    <button class="delete-note-btn" @click="deleteNote(note.id)"><i class="fas fa-times"></i></button>
-                    <component :is="note.type" :info="note.info" @save="saveNote(note)"></component>
-                    <color-picker :currColor="note.color" @color="changeNoteColor($event, note.id)"></color-picker>
-                </li>
-            </ul>
+            <p v-if="pinnedNotes.length" class="list-lable">Pinned</p>
+            <note-list v-if="pinnedNotes.length" :notes="pinnedNotes"></note-list>
+            <p v-if="pinnedNotes.length && unPinnedNotes.length" class="list-lable">Others</p>
+            <note-list v-if="unPinnedNotes.length" :notes="unPinnedNotes"></note-list>
         </section>
     `,
     data() {
@@ -47,47 +24,59 @@ export default {
             .then(notes => {
                 this.notes = notes;
             });
+
+        eventBus.$on(SAVE_NOTES, this.saveNotes);
+
+        eventBus.$on(DELETE_NOTE, (noteId) => {
+            this.deleteNote(noteId);
+        });
+
+        eventBus.$on(CHANGE_NOTE_STYLE, (evData) => {
+            this.changeNoteStyle(evData.noteId, evData.style, evData.value)
+        });
     },
     computed: {
         pinnedNotes() {
-            return this.notes.filter(note => note.isPinned);
+            return this.notes.filter(note => note.style.isPinned);
         },
         unPinnedNotes() {
-            return this.notes.filter(note => !note.isPinned);
+            return this.notes.filter(note => !note.style.isPinned);
         }
     },
     methods: {
+        saveNotes() {
+            noteService.saveNotes()
+                .then(() => {
+                    console.log('notes saved')
+                })
+        },
         deleteNote(noteId) {
             noteService.deleteNote(noteId)
                 .then(() => {
                     console.log('note deleted')
                 })
         },
-        saveNote(note) {
-            noteService.updateNote(note)
+        changeNoteStyle(noteId, style, value) {
+            noteService.changeNoteStyle(noteId, style, value)
                 .then(() => {
-                    console.log('note saved')
-                })
-        },
-        noteToggler(target, noteId) {
-            noteService.noteToggler(target, noteId)
-                .then(() => {
-                    console.log('toggle', target);
-                })
-        },
-        changeNoteColor(color, noteId) {
-            noteService.changeNoteColor(color, noteId)
-                .then(() => {
-                    console.log('color changed');
+                    console.log('style', style, value);
                 })
         }
     },
     components: {
-        noteTxt,
-        noteImg,
-        noteVideo,
-        noteTodos,
         noteAdd,
-        colorPicker
+        noteList
     }
 };
+
+
+// eventBus.$on(EVENT_SHOW_MSG, (msg) => {
+//     this.msg = msg;
+//     if (this.timeout) clearTimeout(this.timeout);
+//     this.timeout = setTimeout(() => {
+//         this.msg = null;
+//     }, 5000);
+// })
+
+// import { eventBus, EVENT_SHOW_MSG } from '../../../services/event-bus.service.js';
+// eventBus.$emit(EVENT_SHOW_MSG, { txt: 'I am testing event bus', type: 'error' });

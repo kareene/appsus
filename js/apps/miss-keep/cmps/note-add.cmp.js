@@ -28,7 +28,7 @@ export default {
         inputPlacehoder() {
             switch (this.note.type) {
                 case 'noteTxt': return 'Take a note...';
-                case 'noteImage': return 'Enter image url...';
+                case 'noteImg': return 'Enter image url...';
                 case 'noteVideo': return 'Enter Youtube video url...';
                 case 'noteTodos': return 'Enter a comma separated todo list...';
             }
@@ -55,7 +55,7 @@ export default {
                 this.note.info.txt = this.content;
             }
             this.content = '';
-            noteService.addNote(JSON.parse(JSON.stringify(this.note)))
+            noteService.addNote(this.note)
                 .then(() => {
                     console.log('added note')
                 });

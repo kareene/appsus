@@ -17,8 +17,6 @@ export default {
     },
     methods: {
         pickColor(color) {
-            console.log(color,"emitter");
-            var sheker ="gas";
             this.$emit('color', color);
         }
     }

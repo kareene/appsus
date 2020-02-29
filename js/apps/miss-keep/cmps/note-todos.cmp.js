@@ -5,17 +5,12 @@ export default {
             <ul v-if="info.todos" class="clean-list">
                 <li v-for="todo in info.todos">
                     <label :class="{ checked: todo.isDone }">
-                        <input type="checkbox" v-model="todo.isDone" @change="saveNote">
+                        <input type="checkbox" v-model="todo.isDone" @change="$emit('checked')">
                         {{todo.txt}}
                     </label>  
                 </li>
             </ul>
         </article>
     `,
-    props: ['info'],
-    methods: {
-        saveNote() {
-            this.$emit('save');
-        }
-    }
+    props: ['info']
 }
