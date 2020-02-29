@@ -10,7 +10,8 @@ export const noteService = {
     addNote,
     updateNote,
     deleteNote,
-    noteToggler
+    noteToggler,
+    changeNoteColor
 }
 
 function getNotesForDisplay() {
@@ -66,6 +67,14 @@ function noteToggler(target, noteId) {
     if (!note) return Promise.reject('Something bad happened');
     if (target === 'mark') note.isMarked = !note.isMarked;
     else note.isPinned = !note.isPinned;
+    utilService.saveToStorage(NOTE_KEY, notesDB);
+    return Promise.resolve();
+}
+
+function changeNoteColor(color, noteId) {
+    var note = notesDB.find(note => note.id === noteId);
+    if (!note) return Promise.reject('Something bad happened');
+    note.color = color;
     utilService.saveToStorage(NOTE_KEY, notesDB);
     return Promise.resolve();
 }

@@ -1,0 +1,25 @@
+.color-picker {
+    width: fit-content;
+    background-color: #fff;
+    padding: 6px;
+}
+
+.color-picker > div {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+}
+
+.color-picker > div:not(:last-child) {
+    margin-right: 2px;
+}
+
+.color-picker > div.marked {
+    border: 1px solid #000;
+}
+
+.color-picker > div:hover {
+    border: 1px solid #000;
+}

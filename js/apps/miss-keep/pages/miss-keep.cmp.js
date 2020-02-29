@@ -4,6 +4,7 @@ import noteImg from "../cmps/note-img.cmp.js"
 import noteVideo from "../cmps/note-video.cmp.js"
 import noteTodos from "../cmps/note-todos.cmp.js"
 import noteAdd from "../cmps/note-add.cmp.js"
+import colorPicker from "../cmps/color-picker.cmp.js"
 
 export default {
     template: `
@@ -12,22 +13,26 @@ export default {
             <note-add></note-add>
             <div v-if="pinnedNotes.length" class="list-lable">Pinned</div>
             <ul v-if="pinnedNotes.length" class="note-list clean-list">
-                <li v-for="note in pinnedNotes" class="note-item" 
-                :class="{ marked: note.isMarked, pinned: note.isPinned }">
-                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)">pin</button>
-                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)">mark</button>
-                    <button class="delete-note-btn" @click="deleteNote(note.id)">&times;</button>
-                    <component :is="note.type" :info="note.info" @save="saveNote(note)"></component>
+                <li v-for="note in pinnedNotes" class="note-item"
+                :class="{ marked: note.isMarked, pinned: note.isPinned }"
+                :style="{ backgroundColor: note.color }">
+                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)"><i class="fas fa-thumbtack"></i></button>
+                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)"><i class="fas fa-check-circle"></i></button>
+                    <button class="delete-note-btn" @click="deleteNote(note.id)"><i class="fas fa-times"></i></button>
+                    <component :is="note.type" :info="note.info" @save="saveNote(note)"></component> 
+                    <color-picker :currColor="note.color" @color="changeNoteColor($event, note.id)"></color-picker>
                 </li>
             </ul>
             <div v-if="pinnedNotes.length && unPinnedNotes.length" class="list-lable">Others</div>
             <ul v-if="unPinnedNotes.length" class="note-list clean-list">
                 <li v-for="note in unPinnedNotes" class="note-item" 
-                :class="{ marked: note.isMarked, pinned: note.isPinned }">
-                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)">pin</button>
-                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)">mark</button>
-                    <button class="delete-note-btn" @click="deleteNote(note.id)">&times;</button>
+                :class="{ marked: note.isMarked, pinned: note.isPinned }"
+                :style="{ backgroundColor: note.color }">
+                    <button class="mark-note-btn" @click="noteToggler('pin', note.id)"><i class="fas fa-thumbtack"></i></button>
+                    <button class="mark-note-btn" @click="noteToggler('mark', note.id)"><i class="fas fa-check-circle"></i></button>
+                    <button class="delete-note-btn" @click="deleteNote(note.id)"><i class="fas fa-times"></i></button>
                     <component :is="note.type" :info="note.info" @save="saveNote(note)"></component>
+                    <color-picker :currColor="note.color" @color="changeNoteColor($event, note.id)"></color-picker>
                 </li>
             </ul>
         </section>
@@ -69,6 +74,12 @@ export default {
                 .then(() => {
                     console.log('toggle', target);
                 })
+        },
+        changeNoteColor(color, noteId) {
+            noteService.changeNoteColor(color, noteId)
+                .then(() => {
+                    console.log('color changed');
+                })
         }
     },
     components: {
@@ -76,6 +87,7 @@ export default {
         noteImg,
         noteVideo,
         noteTodos,
-        noteAdd
+        noteAdd,
+        colorPicker
     }
 };

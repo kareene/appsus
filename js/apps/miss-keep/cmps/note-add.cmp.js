@@ -45,7 +45,7 @@ export default {
             } else if (this.note.type === 'noteImg') {
                 this.note.info.url = this.content;
             } else if (this.note.type === 'noteTodos') {
-                this.note.info.todos = this.content.split(',').map(todo => {
+                this.note.info.todos = this.content.split(',').filter(todo => todo).map(todo => {
                     return {
                         txt: todo,
                         isDone: false
