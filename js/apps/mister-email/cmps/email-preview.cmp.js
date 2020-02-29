@@ -2,9 +2,10 @@ export default {
     template: `
     <li class = "email-preview "   @click= "toggleExpended" :class = "readStatus">
         <section class = "preview-header flex space-between">
-            <h3>{{email.subject}}</h3>
-            <p>{{formattedBodyShort}}</p>
-            <p>{{formattedTime}}</p>
+            <p class = "name">{{email.name}} </p>
+            <p class = "subject">{{email.subject}}-</p>
+            <p>{{formattedBodyShort}} </p>
+            <small>{{formattedTime}}</small>
         </section>
         <section class = "expended" v-if = "isExpended">
             <div class = "flex space-between">
@@ -40,10 +41,10 @@ export default {
             return date.toLocaleString();
         },
         formattedBodyShort(){
-            return this.email.body.substring(0,99) + '...';
+            return (this.email.body.length > 80) ? (this.email.body.substring(0,79) + '...'): this.email.body.substring(0,99);
         },
         formattedBodyLong(){
-            return this.email.body.substring(0,300) + '...';
+            return (this.email.body.length > 300) ? (this.email.body.substring(0,299) + '...'): this.email.body.substring(0,299);
         },
         previewSize(){
             return (this.isExpended) ? 'expended' : 'small';
@@ -52,12 +53,13 @@ export default {
             return (this.email.isRead) ? 'fas fa-envelope-open' : 'fas fa-envelope';
         },
         readStatus(){
-            return (this.email.isRead) ? 'read': '';
+            return (this.email.isRead) ? 'read': 'unread';
         }
     },
     methods: {
         toggleExpended(){
             console.log("toggle expended")
+        
             if(!this.email.isRead) this.$emit('read', this.email.id);
             this.isExpended = !this.isExpended;
         },
@@ -72,7 +74,16 @@ export default {
             this.$emit('delete', this.email.id);
         }
 
-    }
+    },
+    created (){
+        this.isExpended =false;
+    },
+    watch: {
+        '$route'(to,from){
+            this.isExpended =false;
+ 
+        }
+    },
     
     
 };
