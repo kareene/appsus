@@ -1,27 +1,5 @@
-.note-list article, .note-list article {
-    display: inline-block;
-}
-
-.note-list{
-    column-gap: 15px;
-    column-count: 4;
-
-}
-
-.note-list li {
-    /* margin-right: 15px; */
-}
-
-.note-item >*{
-    width: 100%;
-}
-
-
-
-.note-item{
-    padding: 10px;
-    width: 100%;
-    background-color: aquamarine;
-    margin-bottom: 15px;
-
+.miss-keep-container {
+    min-height: 100vh;
+    background-color: #e0e0e0;
+    padding: 30px;
 }

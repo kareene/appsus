@@ -1,8 +1,8 @@
 export default {
     template: `
-        <article class="note-img">
+        <article class="note-txt">
             <p class="title">{{info.title}}</p>
-            <img :src="info.url" />
+            <p class="">{{info.txt}}</p>
         </article>
     `,
     props: ['info']

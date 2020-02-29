@@ -1,24 +1,38 @@
 export default {
     template: `
         <article class="note-video">
-            <h1>test</h1>
-            <div class="video-container">
-                <iframe
-                    :src="https://www.youtube.com/embed/youtubeVideoId"
-                    frameborder="0" allowfullscreen
+            <p v-if="info.title" class="title">{{info.title}}</p>
+            <div v-if="info.url" class="video-container" ref="videoContainer">
+                <iframe  :width="iframeWidth" :height="iframeHeight" 
+                    :src="info.url" frameborder="0"  allowfullscreen
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 ></iframe>
             </div>
+            <p v-else>Sorry, something went wrong while loding the video.</p>
         </article>
     `,
     props: ['info'],
-    computed: {
-        youtubeVideoId() {
-            const youtube_regex = /^.(youtu\.be\/|vi?\/|u\/\w\/|embed\/|\?vi?=|\&vi?=)([^#\&\?]).*/i;
-            videoId = this.info.url.match(youtube_regex)[2];
-            return (videoId && videoId.length === 11) ? videoId : '';
+    data() {
+        return {
+            iframeWidth: 0,
+            iframeHeight: 0
+        }
+    },
+    created() {
+        window.addEventListener("resize", this.resizeIframe);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.resizeIframe);
+    },
+    mounted() {
+        this.resizeIframe();
+    },
+    methods: {
+        resizeIframe() {
+            this.iframeWidth = this.$refs.videoContainer.clientWidth;
+            this.iframeHeight = this.iframeWidth * 0.5625;
         }
     }
 }
 
-// aspect ratio:  width * (9/16, 56.25%)
-// allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+{/* <iframe width="560" height="315" src="https://www.youtube.com/embed/PkLHN3Mujw8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}

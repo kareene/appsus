@@ -20,11 +20,10 @@
     justify-content: space-between;
 }
 
-
 .flex.direction-column{
     flex-direction: column;
 }
-.pre-formatted {
-    white-space: pre;
+.white-space-pre-wrap {
+    white-space: pre-wrap;
 }
 

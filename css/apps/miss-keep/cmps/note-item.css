@@ -1,0 +1,26 @@
+.note-item .title {
+    font-family: Roboto-Bold;
+    margin-bottom: 0.5rem;
+}
+
+.note-item {
+    width: 100%;
+    padding: 1rem;
+    background-color: #fff;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+    transition: all .3s ease-in-out;
+    box-shadow: 0;
+}
+
+.note-item.marked {
+    border: 2px solid #000;
+}
+
+.note-item:hover {
+    /* transform: scale(1.02); */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
