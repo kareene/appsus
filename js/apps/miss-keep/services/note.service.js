@@ -7,10 +7,11 @@ export const noteService = {
     getNotesForDisplay,
     getNoteById,
     getEmptyNote,
+    saveNotes,
     addNote,
     updateNote,
     deleteNote,
-    noteToggler
+    changeNoteStyle
 }
 
 function getNotesForDisplay() {
@@ -32,42 +33,53 @@ function getEmptyNote(type) {
         id: utilService.makeId(13),
         type: type,
         info: info,
-        isPinned: false,
-        isMarked: false,
-        color: '#fff'
+        style: {
+            isPinned: false,
+            isMarked: false,
+            color: '#fff'
+        }
     }
+}
+
+function saveNotes() {
+    utilService.saveToStorage(NOTE_KEY, notesDB);
+    return Promise.resolve();
 }
 
 function addNote(note) {
     notesDB.unshift(note);
-    utilService.saveToStorage(NOTE_KEY, notesDB);
-    return Promise.resolve();
+    return saveNotes();
 }
 
 function updateNote(noteToSave) {
     var idx = notesDB.findIndex(note => note.id === noteToSave.id);
     if (idx === -1) return Promise.reject('Something bad happened');
     notesDB.splice(idx, 1, noteToSave);
-    utilService.saveToStorage(NOTE_KEY, notesDB);
-    return Promise.resolve();
+    return saveNotes();
 }
 
 function deleteNote(noteId) {
     var idx = notesDB.findIndex(note => note.id === noteId);
-    if (idx !== -1) {
-        notesDB.splice(idx, 1);
-        utilService.saveToStorage(NOTE_KEY, notesDB);
-    }
-    return Promise.resolve();
+    if (idx !== -1) notesDB.splice(idx, 1);
+    return saveNotes();
 }
 
-function noteToggler(target, noteId) {
+function changeNoteStyle(noteId, style, value) {
     var note = notesDB.find(note => note.id === noteId);
     if (!note) return Promise.reject('Something bad happened');
-    if (target === 'mark') note.isMarked = !note.isMarked;
-    else note.isPinned = !note.isPinned;
-    utilService.saveToStorage(NOTE_KEY, notesDB);
-    return Promise.resolve();
+
+    switch (style) {
+        case 'mark':
+            note.style.isMarked = !note.style.isMarked;
+            break;
+        case 'pin':
+            note.style.isPinned = !note.style.isPinned;
+            break;
+        case 'color':
+            note.style.color = value;
+    }
+
+    return saveNotes();
 }
 
 function _createNotes() {
@@ -77,31 +89,43 @@ function _createNotes() {
             {
                 id: 'sarhdfhd',
                 type: 'noteTxt',
-                isPinned: false,
                 info: {
                     title: 'Fullstack Me Baby!',
                     txt: 'Fullstack Me Baby!\nFullstack Me Baby!\nthis is a story about a girl, her dog and the end of the world\nFullstack! Fullstack! Fullstack! Fullstack! Fullstack!'
+                },
+                style: {
+                    isPinned: false,
+                    isMarked: false,
+                    color: '#fff'
                 }
             },
             {
                 id: 'akfjghdfguh',
                 type: 'noteImg',
-                isPinned: false,
                 info: {
                     title: 'Fullstack Me Baby!',
                     url: 'img/success.png'
+                },
+                style: {
+                    isPinned: false,
+                    isMarked: false,
+                    color: '#fff'
                 }
             },
             {
                 id: 'dddddddddd',
                 type: 'noteTodos',
-                isPinned: false,
                 info: {
                     title: 'Do all the things',
                     todos: [{ txt: 'do this', isDone: false },
                     { txt: 'do that', isDone: true },
                     { txt: 'do some more', isDone: false },
                     { txt: 'do it all', isDone: false }]
+                },
+                style: {
+                    isPinned: false,
+                    isMarked: false,
+                    color: '#fff'
                 }
             }
         ];

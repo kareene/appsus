@@ -28,7 +28,7 @@ export default {
         inputPlacehoder() {
             switch (this.note.type) {
                 case 'noteTxt': return 'Take a note...';
-                case 'noteImage': return 'Enter image url...';
+                case 'noteImg': return 'Enter image url...';
                 case 'noteVideo': return 'Enter Youtube video url...';
                 case 'noteTodos': return 'Enter a comma separated todo list...';
             }
@@ -45,7 +45,7 @@ export default {
             } else if (this.note.type === 'noteImg') {
                 this.note.info.url = this.content;
             } else if (this.note.type === 'noteTodos') {
-                this.note.info.todos = this.content.split(',').map(todo => {
+                this.note.info.todos = this.content.split(',').filter(todo => todo).map(todo => {
                     return {
                         txt: todo,
                         isDone: false
@@ -55,7 +55,7 @@ export default {
                 this.note.info.txt = this.content;
             }
             this.content = '';
-            noteService.addNote(JSON.parse(JSON.stringify(this.note)))
+            noteService.addNote(this.note)
                 .then(() => {
                     console.log('added note')
                 });
