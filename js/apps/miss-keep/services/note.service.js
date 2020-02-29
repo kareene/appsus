@@ -26,9 +26,24 @@ function getNoteById(noteId) {
 
 function getEmptyNote(type) {
     var info = { title: '' }
-    if (type === 'noteImg' || type === 'noteVideo') info.url = '';
-    else if (type === 'noteTodos') info.todos = [];
-    else info.txt = '';
+    switch (type) {
+        case 'noteTxt':
+            info.txt = '';
+            info.placeholder = 'Take a note...';
+            break;
+        case 'noteImg':
+            info.url = '';
+            info.placeholder = 'Enter image url...';
+            break;
+        case 'noteVideo':
+            info.url = '';
+            info.placeholder = 'Enter Youtube video url...';
+            break;
+        case 'noteTodos':
+            info.todos = [];
+            info.placeholder = 'Enter a comma separated todo list...';
+    }
+
     return {
         id: utilService.makeId(13),
         type: type,

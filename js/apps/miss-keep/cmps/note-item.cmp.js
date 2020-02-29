@@ -4,6 +4,7 @@ import noteImg from '../cmps/note-img.cmp.js';
 import noteVideo from '../cmps/note-video.cmp.js';
 import noteTodos from '../cmps/note-todos.cmp.js';
 import colorPicker from '../cmps/color-picker.cmp.js';
+import noteEdit from '../cmps/note-edit.cmp.js';
 
 export default {
     template: `
@@ -12,7 +13,7 @@ export default {
             <button class="mark-note-btn" @click="changeNoteStyle(note.id, 'mark')"><i class="fas fa-check-circle"></i></button>
             <button class="pin-note-btn" @click="changeNoteStyle(note.id, 'pin')"><i class="fas fa-thumbtack"></i></button>
             
-            <component v-if="!isEdit" :is="note.type" :info="note.info" @checked="saveNotes"></component> 
+            <component :is="note.type" :info="note.info" @checked="saveNotes"></component> 
             
             <section class = "flex align-center space-between">
                 <div class="note-type-display"><i :class="noteTypeIcon"></i></div>
@@ -31,6 +32,8 @@ export default {
                     </button>
                 </div>
             </section>
+
+            <note-edit v-if="isEdit" :note="note" @edit-finished="toggleEdit"></note-edit>
         </li>
     `,
     props: ['note'],
@@ -72,6 +75,7 @@ export default {
         noteImg,
         noteVideo,
         noteTodos,
-        colorPicker
+        colorPicker,
+        noteEdit
     }
 }
