@@ -1,6 +1,4 @@
-header {
-    margin-bottom: 25px;
-}
+
 
 .appsus-header{
     background-image: url(http://euchinacrn.org/wp-content/themes/holi/images/headers/red/diamond.png);
@@ -20,11 +18,14 @@ header {
     font-family: Cuprum;
     font-size: 1.2em;
     color: black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
     /* display:flex; */
     /* align-items: center; */
 }
 
 
-.navbar .router-link-exact-active{
+.navbar .router-link-active{
     box-shadow: inset 0 -6px #0000009e;
 }

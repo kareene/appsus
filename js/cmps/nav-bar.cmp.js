@@ -1,6 +1,6 @@
 export default {
     template: `
-        <nav class="navbar">
+        <nav class="navbar flex">
             <router-link to="/" exact> Home </router-link>
             
             <router-link to="/book" exact> Miss Books </router-link>

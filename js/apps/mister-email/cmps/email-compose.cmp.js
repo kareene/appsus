@@ -71,7 +71,7 @@ export default {
         },
         exitCompose() {
             this.saveDraft();
-            this.$router.push('/email/');
+            this.$router.push('/email');
         },
         debounce(func, time) {
             if (this.timeout) clearTimeout(this.timeout);
