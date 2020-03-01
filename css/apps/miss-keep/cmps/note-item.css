@@ -5,13 +5,15 @@
     background-color: #fff;
     border: 2px solid transparent;
     border-radius: 0.5rem;
+    -webkit-column-break-inside: avoid; 
     break-inside: avoid;
     page-break-inside: avoid;
     overflow-wrap: break-word;
     word-wrap: break-word;
     margin-bottom: 1rem;
     transition: all .3s ease-in-out;
-    box-shadow: 0;
+    box-shadow: none;
+    transform: translateZ(0);
 }
 
 .note-item .title {
@@ -31,6 +33,18 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.note-item.edit {
-    background-color: rebeccapurple;
+.note-type-display {
+    background-color: transparent;
+    font-size: 1.3rem;
+}
+
+.mark-note-btn {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    /* transform: translate(-50%, -50%); */
+}
+
+.pin-note-btn {
+    float: right;
 }
