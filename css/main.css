@@ -11,6 +11,8 @@
 @import "./apps/miss-keep/miss-keep.css";
 @import "./apps/mister-email/cmps/nav-bar.css";
 @import "./apps/miss-keep/cmps/note-list.css";
+@import "./apps/miss-keep/cmps/note-add.css";
+@import "./apps/miss-keep/cmps/note-edit.css";
 @import "./apps/miss-keep/cmps/note-item.css";
 @import "./apps/miss-keep/cmps/note-video.css";
 @import "./apps/miss-keep/cmps/note-todos.css";

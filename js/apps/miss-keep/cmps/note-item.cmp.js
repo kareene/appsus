@@ -9,19 +9,25 @@ import noteEdit from '../cmps/note-edit.cmp.js';
 export default {
     template: `
         <li class="note-item" :style="{ backgroundColor: note.style.color }"
-        :class="{ marked: note.style.isMarked, pinned: note.style.isPinned, edit: isEdit }">
-            <button class="mark-note-btn" @click="changeNoteStyle(note.id, 'mark')"><i class="fas fa-check-circle"></i></button>
-            <button class="pin-note-btn" @click="changeNoteStyle(note.id, 'pin')"><i class="fas fa-thumbtack"></i></button>
+        :class="{ marked: note.style.isMarked, pinned: note.style.isPinned }"
+        @mouseover="toggleHover" @mouseout="toggleHover">
+            <button :class="{ hide: !isHover }" class="mark-note-btn" @click="changeNoteStyle(note.id, 'mark')">
+                <i class="fas fa-check-circle"></i>
+            </button>
+            <button :class="{ hide: !isHover }" class="pin-note-btn" @click="changeNoteStyle(note.id, 'pin')">
+                <i class="fas fa-thumbtack"></i>
+            </button>
             
             <component :is="note.type" :info="note.info" @checked="saveNotes"></component> 
-            
-            <section class = "flex align-center space-between">
+            <div class="color-picker-container">
+                <color-picker @color="changeNoteStyle(note.id, 'color', $event)"
+                    :currColor="note.style.color" :class="{ reveal: isShowColors }"
+                ></color-picker>
+            </div>
+            <section class="flex align-center space-between">
                 <div class="note-type-display"><i :class="noteTypeIcon"></i></div>
-                <div class="note-btn-container">
-                    <color-picker @color="changeNoteStyle(note.id, 'color', $event)"
-                        :currColor="note.style.color" :class="{ reveal: isShowColors }"
-                    ></color-picker>
-                    <button class="edit-note-btn" @click="toggleEdit">
+                <div :class="{ hide: !isHover }" class="note-btn-container">
+                    <button class="edit-note-btn" @click="toggleEdit" :class="{ edit: isEdit }">
                         <i class="fas fa-edit"></i>
                     </button>
                     <button class="color-btn" @mouseover="toggleColorPicker" @mouseout="toggleColorPicker">
@@ -40,6 +46,7 @@ export default {
     data() {
         return {
             isShowColors: false,
+            isHover: false,
             isEdit: false
         }
     },
@@ -54,6 +61,9 @@ export default {
         }
     },
     methods: {
+        toggleHover() {
+            this.isHover = !this.isHover;
+        },
         toggleEdit() {
             this.isEdit = !this.isEdit;
         },

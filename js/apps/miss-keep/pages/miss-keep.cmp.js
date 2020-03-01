@@ -6,7 +6,6 @@ import noteList from "../cmps/note-list.cmp.js"
 export default {
     template: `
         <section class="miss-keep-container">
-            <h2>MISS KEEP</h2>
             <note-add></note-add>
             <p v-if="pinnedNotes.length" class="list-lable">Pinned</p>
             <note-list v-if="pinnedNotes.length" :notes="pinnedNotes"></note-list>
