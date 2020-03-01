@@ -60,3 +60,19 @@
     margin-left: 8px;
     color: #464646;
 }
+
+
+
+@media(max-width:890px){
+.preview-header{
+    flex-direction: column;
+    }
+
+    .preview-header small{
+        order: -1;
+    }    
+
+    .preview-header .name{
+        margin-bottom: 5px;
+    }
+}

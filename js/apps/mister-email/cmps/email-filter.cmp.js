@@ -4,24 +4,25 @@ export default {
     template: `
             <ul class = "nav-bar clean-list">
                 <li>
-                    <router-link :to = "{path: '/email', query: {filterBy: 'all'}}"  ><i class="fas fa-inbox"></i> Inbox</router-link>
+                    <router-link :to = "{path: '/email', query: {filterBy: 'all'}}"  ><i class="fas fa-inbox"></i><span> Inbox</span></router-link>
                 </li>
                 <li>
-                <router-link :to = "{path: '/email', query: {filterBy: 'sent'}}"><i class="fas fa-paper-plane"></i> Sent</router-link>
+                <router-link :to = "{path: '/email', query: {filterBy: 'sent'}}"><i class="fas fa-paper-plane"></i><span> Sent</span></router-link>
                 </li>
                 <li>
-                <router-link :to = "{path: '/email', query: {filterBy: 'read'}}"><i class="fas fa-envelope-open"></i> Read</router-link>
+                <router-link :to = "{path: '/email', query: {filterBy: 'read'}}"><i class="fas fa-envelope-open"></i><span> Read</span></router-link>
                 </li>
                 <li>
-                <router-link :to = "{path: '/email', query: {filterBy: 'unread'}}"><i class="fas fa-envelope"></i> Unread</router-link>
+                <router-link :to = "{path: '/email', query: {filterBy: 'unread'}}"><i class="fas fa-envelope"></i><span> Unread</span></router-link>
                 </li>
                 <li>
-                    <a @click = "emitFilter('Draft')"><i class="fas fa-sticky-note"></i> Draft</a>
+                    <a @click = "emitFilter('Draft')"><i class="fas fa-sticky-note"></i><span> Draft</span></a>
                 </li>
                 <li>
-                    <a @click = "emitFilter('Stared')"><i class="far fa-star"></i> Stared</a>
+                    <a @click = "emitFilter('Stared')"><i class="far fa-star"></i><span> Stared</span></a>
                 </li>
             </ul>`,
+
             
             
 

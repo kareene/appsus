@@ -34,6 +34,7 @@ export default {
                     eventBus.$emit(EVENT_SHOW_MSG, { txt: 'Email was deleted', type: 'success' });
                 });
         },
+
         markAsRead(emailId) {
             console.log("mark red")
             emailService.isReadToggle(emailId);
@@ -94,6 +95,7 @@ export default {
             const params = window.location.hash.split("?")[1]
             if (params) this.filterBy = params.split("=")[1];
             this.filterEmails()
+
 
         }
     },
