@@ -33,8 +33,12 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.note-item .hide {
+.note-item .show-on-hover {
     visibility: hidden;
+}
+
+.note-item:hover .show-on-hover {
+    visibility: visible;
 }
 
 .note-btn-container {

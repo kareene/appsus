@@ -7,8 +7,12 @@ export default {
             <input v-model="title" placeholder="Title" />
             <input v-model="content" :placeholder="note.info.placeholder" @keydown.enter="updateNote" />
             <div class="edit-btn-container flex space-between">
-                <button class="cancel-btn" @click="finishEdit"><i class="fas fa-times"></i></button>
-                <button class="update-btn" @click="updateNote"><i class="fas fa-check"></i></button>
+                <button class="cancel-btn" @click="finishEdit" title="Cancel">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="update-btn" @click="updateNote" title="Update Note">
+                    <i class="fas fa-check"></i>
+                </button>
             </div>
         </section>
     `,

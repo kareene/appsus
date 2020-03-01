@@ -9,12 +9,13 @@ import noteEdit from '../cmps/note-edit.cmp.js';
 export default {
     template: `
         <li class="note-item" :style="{ backgroundColor: note.style.color }"
-        :class="{ marked: note.style.isMarked, pinned: note.style.isPinned }"
-        @mouseover="toggleHover" @mouseout="toggleHover">
-            <button :class="{ hide: !isHover }" class="mark-note-btn" @click="changeNoteStyle(note.id, 'mark')">
+        :class="{ marked: note.style.isMarked, pinned: note.style.isPinned }">
+            <button class="mark-note-btn show-on-hover" @click="changeNoteStyle(note.id, 'mark')"
+            title="Mark Note">
                 <i class="fas fa-check-circle"></i>
             </button>
-            <button :class="{ hide: !isHover }" class="pin-note-btn" @click="changeNoteStyle(note.id, 'pin')">
+            <button class="pin-note-btn show-on-hover" @click="changeNoteStyle(note.id, 'pin')"
+            title="Pin Note">
                 <i class="fas fa-thumbtack"></i>
             </button>
             
@@ -26,14 +27,16 @@ export default {
             </div>
             <section class="flex align-center space-between">
                 <div class="note-type-display"><i :class="noteTypeIcon"></i></div>
-                <div :class="{ hide: !isHover }" class="note-btn-container">
-                    <button class="edit-note-btn" @click="toggleEdit" :class="{ edit: isEdit }">
+                <div class="note-btn-container show-on-hover">
+                    <button class="edit-note-btn" @click="toggleEdit" :class="{ edit: isEdit }"
+                    title="Edit Note">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="color-btn" @mouseover="toggleColorPicker" @mouseout="toggleColorPicker">
+                    <button class="color-btn" @mouseover="toggleColorPicker" @mouseout="toggleColorPicker"
+                    title="Note Color">
                         <i class="fas fa-palette"></i>
                     </button>
-                    <button class="delete-note-btn" @click="deleteNote(note.id)">
+                    <button class="delete-note-btn" @click="deleteNote(note.id)" title="Delete Note">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
@@ -46,7 +49,6 @@ export default {
     data() {
         return {
             isShowColors: false,
-            isHover: false,
             isEdit: false
         }
     },
@@ -61,9 +63,6 @@ export default {
         }
     },
     methods: {
-        toggleHover() {
-            this.isHover = !this.isHover;
-        },
         toggleEdit() {
             this.isEdit = !this.isEdit;
         },
