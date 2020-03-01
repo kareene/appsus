@@ -3,7 +3,7 @@ export default {
     <li class = "email-preview "   @click= "toggleExpended" :class = "readStatus">
         <section class = "preview-header flex space-between">
             <p class = "name">{{email.name}} </p>
-            <p class = "subject">{{email.subject}}-</p>
+            <p class = "subject"> {{email.subject}}-</p>
             <p>{{formattedBodyShort}} </p>
             <small>{{formattedTime}}</small>
         </section>

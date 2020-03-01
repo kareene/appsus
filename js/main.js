@@ -7,14 +7,25 @@ new Vue({
     router,
     template: `
     <section>
+        <div class="screen" @click="toggleMenu"></div>
         <header class = "appsus-header flex space-between align-center">
             <h1>APPSUS</h1>
             <nav-bar></nav-bar>
+            <button class="menu-btn" @click="toggleMenu">☰</button>
+
         </header>
         <user-msg></user-msg>
         <router-view></router-view>
-        </section>
+    </section>
     `,
+    methods: {
+        toggleMenu(){
+            document.body.classList.toggle('menu-open');
+            
+
+        }
+
+    },
     components: {
         navBar,
         userMsg

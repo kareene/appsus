@@ -7,7 +7,7 @@ export default {
         <section class = "mister-email flex space-between">
             <nav class = "nav-container flex direction-column">
                 <email-filter></email-filter>
-                <router-link to = "email/compose"><button class = "compose"><i class="fas fa-plus"></i> Compose</button></router-link>
+                <router-link to = "email/compose"><button class = "compose"><i class="fas fa-plus"></i><span> Compose</span></button></router-link>
 
 
             </nav>
@@ -21,6 +21,9 @@ export default {
     components: {
         emailFilter
     },
+
+   
+
     
    
 
