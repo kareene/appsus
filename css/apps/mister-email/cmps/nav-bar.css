@@ -1,5 +1,6 @@
 .nav-bar{
-    display: block;;
+    display: block;
+    width:100%
  }
 
 .nav-bar li{
