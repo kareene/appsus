@@ -1,0 +1,12 @@
+.note-add {
+    width: 520px; /* width of two columns and a gap */
+    margin: 0 auto 3rem auto;
+    padding: 0.8rem 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.note-add .button-container {
+    display: inline-block;
+}

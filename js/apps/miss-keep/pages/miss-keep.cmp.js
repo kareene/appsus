@@ -7,10 +7,12 @@ export default {
     template: `
         <section class="miss-keep-container">
             <note-add></note-add>
-            <p v-if="pinnedNotes.length" class="list-lable">Pinned</p>
-            <note-list v-if="pinnedNotes.length" :notes="pinnedNotes"></note-list>
-            <p v-if="pinnedNotes.length && unPinnedNotes.length" class="list-lable">Others</p>
-            <note-list v-if="unPinnedNotes.length" :notes="unPinnedNotes"></note-list>
+            <div class="notes-container">
+                <p v-if="pinnedNotes.length" class="list-lable">Pinned</p>
+                <note-list v-if="pinnedNotes.length" :notes="pinnedNotes"></note-list>
+                <p v-if="pinnedNotes.length && unPinnedNotes.length" class="list-lable">Others</p>
+                <note-list v-if="unPinnedNotes.length" :notes="unPinnedNotes"></note-list>
+            </div>
         </section>
     `,
     data() {

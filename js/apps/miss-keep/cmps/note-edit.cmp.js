@@ -4,8 +4,8 @@ import { noteService } from "../services/note.service.js"
 export default {
     template: `
         <section class="note-edit">
-            <input v-model="title" placeholder="Title" />
-            <input v-model="content" :placeholder="note.info.placeholder" @keydown.enter="updateNote" />
+            <input v-model="noteCopy.info.title" placeholder="Title" />
+            <input v-model="content" :placeholder="noteCopy.info.placeholder" @keydown.enter="updateNote" />
             <div class="edit-btn-container flex space-between">
                 <button class="cancel-btn" @click="finishEdit" title="Cancel">
                     <i class="fas fa-times"></i>
@@ -19,47 +19,45 @@ export default {
     props: ['note'],
     data() {
         return {
-            title: '',
+            noteCopy: JSON.parse(JSON.stringify(this.note)),
             content: ''
         }
     },
     created() {
-        this.title = this.note.info.title;
-        switch (this.note.type) {
+        switch (this.noteCopy.type) {
             case 'noteTxt':
-                this.content = this.note.info.txt;
+                this.content = this.noteCopy.info.txt;
                 break;
             case 'noteImg':
             case 'noteVideo':
-                this.content = this.note.info.url;
+                this.content = this.noteCopy.info.url;
                 break;
             case 'noteTodos':
-                this.content = this.note.info.todos.map(todo => todo.txt).join(',');
+                this.content = this.noteCopy.info.todos.map(todo => todo.txt).join(',');
         }
     },
     methods: {
         updateNote() {
-            switch (this.note.type) {
+            switch (this.noteCopy.type) {
                 case 'noteTxt':
-                    this.note.info.txt = this.content;
+                    this.noteCopy.info.txt = this.content;
                     break;
                 case 'noteImg':
-                    this.note.info.url = this.content;
+                    this.noteCopy.info.url = this.content;
                     break;
                 case 'noteVideo':
                     const videoId = utilService.getYoutubeVideoId(this.content);
-                    this.note.info.url = (videoId) ? `https://www.youtube.com/embed/${videoId}` : '';
+                    this.noteCopy.info.url = (videoId) ? `https://www.youtube.com/embed/${videoId}` : '';
                     break;
                 case 'noteTodos':
-                    this.note.info.todos = this.content.split(',').filter(todo => todo).map(todo => {
+                    this.noteCopy.info.todos = this.content.split(',').filter(todo => todo).map(todo => {
                         return {
                             txt: todo,
                             isDone: false
                         };
                     });
             }
-            this.note.info.title = this.title;
-            noteService.updateNote(this.note)
+            noteService.updateNote(this.noteCopy)
                 .then(() => {
                     console.log('updated note');
                 });
