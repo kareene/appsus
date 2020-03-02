@@ -31,7 +31,8 @@ export default {
     },
     created() {
         var params = this.$router.history.current.query
-        if (params){
+        console.log("params", params.length)
+        if (Object.entries(params).length !== 0 ){
             this.isReply = true;
             this.email = params;
             this.email.subject = `RE: ${this.email.subject}`;
