@@ -25,14 +25,25 @@ export default {
         return {
             email: null,
             isSaveDraft: false,
-            timeout: null
+            timeout: null,
+            isReply: false
         }
     },
     created() {
-        emailService.getEmptyEmail()
+        var params = this.$router.history.current.query
+        if (params){
+            this.isReply = true;
+            this.email = params;
+            this.email.subject = `RE: ${this.email.subject}`;
+            this.email.body = `\n\n\n\n\n ${new Date(+this.email.sentAt).toLocaleString()}\n${this.email.body}`;
+            this.email.sentAt = 0;
+        } else {
+            emailService.getEmptyEmail()
             .then(email => {
                 this.email = email;
             });
+
+        }
     },
     computed: {
         headerClass() {
@@ -69,6 +80,7 @@ export default {
                     });
             }
         },
+        
         exitCompose() {
             this.saveDraft();
             this.$router.push('/email');

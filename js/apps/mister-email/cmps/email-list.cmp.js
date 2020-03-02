@@ -31,6 +31,7 @@ export default {
         deleteEmail(emailId) {
             emailService.deleteEmail(emailId)
                 .then(() => {
+                    this.filterEmails()
                     eventBus.$emit(EVENT_SHOW_MSG, { txt: 'Email was deleted', type: 'success' });
                 });
         },
@@ -69,8 +70,10 @@ export default {
             }
 
             if (this.filterBy === 'draft'){
-                this.filteredEmails = emails.filter( email => !email.sentAt )
+                
+                this.filteredEmails = emails.filter( email => !email.sentAt)
             }
+            
             
         }
     },

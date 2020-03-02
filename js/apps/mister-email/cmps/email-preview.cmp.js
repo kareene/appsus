@@ -38,7 +38,7 @@ export default {
     computed: {
         formattedTime(){
             var date = new Date(this.email.sentAt);
-            return date.toLocaleString();
+            return (this.email.sentAt) ? date.toLocaleString() : '';
         },
         formattedBodyShort(){
             return (this.email.body.length > 80) ? (this.email.body.substring(0,79) + '...'): this.email.body.substring(0,99);
