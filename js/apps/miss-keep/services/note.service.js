@@ -63,20 +63,23 @@ function saveNotes() {
 
 function addNote(note) {
     notesDB.unshift(note);
-    return saveNotes();
+    saveNotes();
+    return Promise.resolve();
 }
 
 function updateNote(noteToSave) {
     var idx = notesDB.findIndex(note => note.id === noteToSave.id);
     if (idx === -1) return Promise.reject('Something bad happened');
     notesDB.splice(idx, 1, noteToSave);
-    return saveNotes();
+    saveNotes();
+    return Promise.resolve();
 }
 
 function deleteNote(noteId) {
     var idx = notesDB.findIndex(note => note.id === noteId);
     if (idx !== -1) notesDB.splice(idx, 1);
-    return saveNotes();
+    saveNotes();
+    return Promise.resolve();
 }
 
 function changeNoteStyle(noteId, style, value) {
@@ -94,7 +97,8 @@ function changeNoteStyle(noteId, style, value) {
             note.style.color = value;
     }
 
-    return saveNotes();
+    saveNotes();
+    return Promise.resolve();
 }
 
 function _createNotes() {

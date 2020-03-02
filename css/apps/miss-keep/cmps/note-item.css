@@ -10,7 +10,7 @@
     page-break-inside: avoid;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    margin-bottom: 1rem;
+    margin-bottom: 20px; /* to match column gap of .note-list */
     transition: all .3s ease-in-out;
     box-shadow: 0 5px 15px transparent;
     transform: translateZ(0);
