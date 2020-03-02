@@ -1,4 +1,6 @@
 .miss-keep-container {
+    /* background-image: url(../../../img/cork-texture.jpg);
+    background-repeat: repeat; */
     min-height: 100vh;
     background-color: #e8d8d0;
     padding: 20px;

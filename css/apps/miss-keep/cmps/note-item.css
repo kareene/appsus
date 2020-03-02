@@ -16,6 +16,10 @@
     transform: translateZ(0);
 }
 
+.note-item > article {
+    min-height: 3rem;
+}
+
 .note-item .title {
     font-family: Roboto-Bold;
     margin-bottom: 0.5rem;
@@ -39,10 +43,6 @@
 
 .note-item:hover .show-on-hover {
     visibility: visible;
-}
-
-.note-btn-container {
-    margin-bottom: 0.5rem;
 }
 
 .note-btn-container > *:not(:last-child) {

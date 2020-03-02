@@ -44,6 +44,9 @@
 }
 
 @media (max-width: 560px){
+    .miss-keep-container  .note-add {
+        width: 100%;
+    }
     .miss-keep-container .notes-container {
         width: 100%;
     }

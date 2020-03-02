@@ -3,7 +3,7 @@ import { noteService } from "../services/note.service.js"
 
 export default {
     template: `
-        <section class="note-add">
+        <section class="note-add flex align-center">
             <input v-model="note.info.title" placeholder="Title" />
             <input v-model="content" :placeholder="note.info.placeholder" @keydown.enter="addNote" />
             <section class="button-container">
