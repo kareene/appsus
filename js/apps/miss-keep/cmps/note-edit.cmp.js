@@ -4,7 +4,7 @@ import { noteService } from "../services/note.service.js"
 export default {
     template: `
         <section class="note-edit">
-            <input v-model="noteCopy.title" placeholder="Title" />
+            <input v-model="noteCopy.info.title" placeholder="Title" />
             <input v-model="content" :placeholder="noteCopy.info.placeholder" @keydown.enter="updateNote" />
             <div class="edit-btn-container flex space-between">
                 <button class="cancel-btn" @click="finishEdit" title="Cancel">
