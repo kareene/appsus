@@ -41,7 +41,7 @@ function getEmptyNote(type) {
             break;
         case 'noteTodos':
             info.todos = [];
-            info.placeholder = 'Enter a comma separated todo list...';
+            info.placeholder = 'Enter a comma separated list...';
     }
 
     return {
@@ -173,7 +173,7 @@ function _createNotes() {
                         { txt: 'do some more', isDone: false },
                         { txt: 'do it all', isDone: false }
                     ],
-                    placeholder: 'Enter a comma separated todo list...'
+                    placeholder: 'Enter a comma separated list...'
                 },
                 style: {
                     isPinned: true,
