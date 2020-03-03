@@ -20,6 +20,9 @@
     padding-right: 28px;
     border-radius: 33px;
     padding-left: 28px;
+    position: absolute;
+    bottom: 45%;
+    left: 5px;
     /* margin-bottom: 20px;
     margin-left: 15px;
     margin-right: 15px; */
@@ -93,7 +96,7 @@
         width: 100%;
     }
 
-    .compose{
+    .mister-email a .compose{
         position: fixed;
         right: 5px;
         bottom: 5px;
@@ -113,3 +116,12 @@
     }
 
 }
+
+@media(max-width:600px){
+
+    .mister-email .nav-container{
+        width: 26%;
+    }
+
+}
+
