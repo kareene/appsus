@@ -29,7 +29,7 @@ export default {
     },
     computed: {
         msgTypeImg() {
-            return (this.msg.type === 'success') ? '../../img/success.png' : '../../img/error.png';
+            return (this.msg.type === 'success') ? 'img/success.png' : 'img/error.png';
         }
     },
     methods: {
