@@ -20,6 +20,7 @@ export default {
             </button>
             
             <component :is="note.type" :info="note.info" @checked="saveNotes"></component> 
+            
             <div class="color-picker-container">
                 <color-picker @color="changeNoteStyle(note.id, 'color', $event)"
                     :currColor="note.style.color" :class="{ reveal: isShowColors }"

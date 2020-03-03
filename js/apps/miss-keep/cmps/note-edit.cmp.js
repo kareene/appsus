@@ -19,24 +19,33 @@ export default {
     props: ['note'],
     data() {
         return {
-            noteCopy: JSON.parse(JSON.stringify(this.note)),
+            noteCopy: null,
             content: ''
         }
     },
     created() {
-        switch (this.noteCopy.type) {
-            case 'noteTxt':
-                this.content = this.noteCopy.info.txt;
-                break;
-            case 'noteImg':
-            case 'noteVideo':
-                this.content = this.noteCopy.info.url;
-                break;
-            case 'noteTodos':
-                this.content = this.noteCopy.info.todos.map(todo => todo.txt).join(',');
+        this.initEdit();
+    },
+    watch: {
+        note: function() {
+            this.initEdit();
         }
     },
     methods: {
+        initEdit() {
+            this.noteCopy = JSON.parse(JSON.stringify(this.note));
+            switch (this.noteCopy.type) {
+                case 'noteTxt':
+                    this.content = this.noteCopy.info.txt;
+                    break;
+                case 'noteImg':
+                case 'noteVideo':
+                    this.content = this.noteCopy.info.url;
+                    break;
+                case 'noteTodos':
+                    this.content = this.noteCopy.info.todos.map(todo => todo.txt).join(',');
+            }
+        },
         updateNote() {
             switch (this.noteCopy.type) {
                 case 'noteTxt':

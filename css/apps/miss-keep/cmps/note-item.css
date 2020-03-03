@@ -18,15 +18,18 @@
 
 .note-item > article {
     min-height: 3rem;
+    margin-bottom: 0.8rem;
+}
+
+.note-item .empty-note {
+    margin-top: 0.6rem;
+    font-size: 1.4rem;
+    color: darkgrey;
 }
 
 .note-item .title {
     font-family: Roboto-Bold;
     margin-bottom: 0.5rem;
-}
-
-.note-item article {
-    margin-bottom: 0.8rem;
 }
 
 .note-item.marked {

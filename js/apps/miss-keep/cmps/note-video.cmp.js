@@ -1,6 +1,7 @@
 export default {
     template: `
         <article class="note-video">
+            <p v-if="!info.title && !info.url" class="empty-note">Empty note</p>
             <p v-if="info.title" class="title">{{info.title}}</p>
             <div v-if="info.url" class="video-container" ref="videoContainer">
                 <iframe  :width="iframeWidth" :height="iframeHeight" 
@@ -19,13 +20,13 @@ export default {
         }
     },
     created() {
-        window.addEventListener("resize", this.resizeIframe);
+        if (this.info.url) window.addEventListener("resize", this.resizeIframe);
     },
     destroyed() {
         window.removeEventListener("resize", this.resizeIframe);
     },
     mounted() {
-        this.resizeIframe();
+        if (this.info.url) this.resizeIframe();
     },
     methods: {
         resizeIframe() {

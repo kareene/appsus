@@ -106,45 +106,121 @@ function _createNotes() {
     if (!notes) {
         var notes = [
             {
-                id: 'sarhdfhd',
+                id: utilService.makeId(13),
                 type: 'noteTxt',
                 info: {
-                    title: 'Fullstack Me Baby!',
-                    txt: 'Fullstack Me Baby!\nFullstack Me Baby!\nthis is a story about a girl, her dog and the end of the world\nFullstack! Fullstack! Fullstack! Fullstack! Fullstack!'
+                    title: 'The boy who lived',
+                    txt: 'Mr. and Mrs. Dursley, of number four Privet Drive, were proud to say that they were perfectly normal, thank you very much.',
+                    placeholder: 'Take a note...'
                 },
                 style: {
                     isPinned: false,
                     isMarked: false,
-                    color: '#fff'
+                    color: '#d7fd9d'
                 }
             },
             {
-                id: 'akfjghdfguh',
+                id: utilService.makeId(13),
                 type: 'noteImg',
                 info: {
-                    title: 'Fullstack Me Baby!',
-                    url: 'img/success.png'
+                    title: '',
+                    url: 'https://www.tiuli.com/image/ba7385bc9018bc8c5711f0ecd17e01a9.jpg?&width=1920',
+                    placeholder: 'Enter image url...'
                 },
                 style: {
                     isPinned: false,
                     isMarked: false,
-                    color: '#fff'
+                    color: '#fef488'
                 }
             },
             {
-                id: 'dddddddddd',
+                id: utilService.makeId(13),
+                type: 'noteTxt',
+                info: {
+                    title: '',
+                    txt: '',
+                    placeholder: 'Take a note...'
+                },
+                style: {
+                    isPinned: false,
+                    isMarked: false,
+                    color: '#d2eff7'
+                }
+            },
+            {
+                id: utilService.makeId(13),
+                type: 'noteImg',
+                info: {
+                    title: 'Everything is OK !!!',
+                    url: 'img/success.png',
+                    placeholder: 'Enter image url...'
+                },
+                style: {
+                    isPinned: false,
+                    isMarked: false,
+                    color: '#bbfdec'
+                }
+            },
+            {
+                id: utilService.makeId(13),
                 type: 'noteTodos',
                 info: {
                     title: 'Do all the things',
-                    todos: [{ txt: 'do this', isDone: false },
-                    { txt: 'do that', isDone: true },
-                    { txt: 'do some more', isDone: false },
-                    { txt: 'do it all', isDone: false }]
+                    todos: [
+                        { txt: 'do this', isDone: false },
+                        { txt: 'do that', isDone: true },
+                        { txt: 'do something', isDone: false },
+                        { txt: 'do some more', isDone: false },
+                        { txt: 'do it all', isDone: false }
+                    ],
+                    placeholder: 'Enter a comma separated todo list...'
+                },
+                style: {
+                    isPinned: true,
+                    isMarked: false,
+                    color: '#b4cbf6'
+                }
+            },
+            {
+                id: utilService.makeId(13),
+                type: 'noteVideo',
+                info: {
+                    title: 'Shetland Wool Week',
+                    url: 'https://youtube.com/embed/FMasGNWy6dA',
+                    placeholder: 'Enter Youtube video url...'
                 },
                 style: {
                     isPinned: false,
                     isMarked: false,
-                    color: '#fff'
+                    color: '#d1b1f6'
+                }
+            },
+            {
+                id: utilService.makeId(13),
+                type: 'noteTxt',
+                info: {
+                    title: 'Don`t forget to buy milk',
+                    txt: 'and eggs, and bread, and granola...',
+                    placeholder: 'Take a note...'
+                },
+                style: {
+                    isPinned: false,
+                    isMarked: false,
+                    color: '#e49086'
+                }
+            },
+            {
+                id: utilService.makeId(13),
+                type: 'noteTxt',
+                info: {
+                    title: 'Lorem ipsum',
+                    txt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis, elit id placerat elementum, orci erat volutpat dui, et cursus magna mauris eget nulla. Mauris nec ipsum et leo commodo accumsan. Sed dignissim bibendum dignissim. Sed tempus gravida mi, at commodo lorem varius et. Pellentesque eget nisl ligula.',
+                    placeholder: 'Take a note...'
+                },
+                style: {
+                    isPinned: false,
+                    isMarked: false,
+                    color: '#f2be42'
                 }
             }
         ];

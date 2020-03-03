@@ -10,7 +10,7 @@ export default {
             <h4>By {{book.authors.join(', ')}}</h4>
             <div class="book-img">
                 <img :src="book.thumbnail" />
-                <img v-if="book.listPrice.isOnSale" src="../../img/sale.png" class="sale-tag" />
+                <img v-if="book.listPrice.isOnSale" src="img/sale.png" class="sale-tag" />
             </div>
             <long-text :txt="book.description"></long-text>
             <p>Published: {{publishedDateFormatted}}</p>
