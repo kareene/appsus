@@ -2,7 +2,7 @@ export default {
     template: `
         <section class="color-picker">
             <template  v-for="(color, idx) in colors">
-                <br v-if="idx !== 0 && idx % 4 === 0" />
+                <!--<br v-if="idx !== 0 && idx % 4 === 0" />-->
                 <div :class="{ marked: color === currColor }" :style="{ backgroundColor: color }"
                     @click="pickColor(color)"></div>
             </template>
