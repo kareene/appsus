@@ -7,6 +7,40 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+.note-add .input-container {
+    width: 100%;
+}
+
+.note-add input {
+    width: 100%;
+    padding: 0.25rem;
+    font-size: 1.2rem;
+    border: none;
+    background-color: inherit;
+}
+
+.note-add .note-add-btn {
+    font-size: 1.1rem;
+    font-family: Roboto-Bold;
+    justify-self: flex-end;
+    align-self: flex-start;
+    margin-top: 1.2rem;
+}
+
 .note-add .button-container {
-    display: inline-block;
+    display: flex;
+}
+
+.note-add button {
+    font-size: 1.4rem;
+    color: grey;
+    padding: 0.2rem 0.3rem;
+}
+
+.note-add button:hover {
+    color: black;
+}
+
+.note-add button.active {
+    color: black;
 }
