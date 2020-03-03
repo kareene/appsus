@@ -1,5 +1,14 @@
 .color-picker-container {
     position: relative;
+    display: none;
+}
+
+.color-picker-container.reveal {
+    display: block;
+}
+
+.color-picker-container:hover {
+    display: block;
 }
 
 .color-picker {
@@ -10,16 +19,7 @@
     position: absolute;
     bottom: 2px;
     right: 0;
-    display: none;
     box-shadow: 0 5px 8px rgba(0,0,0,0.3);
-}
-
-.color-picker.reveal {
-    display: block;
-}
-
-.color-picker:hover {
-    display: block;
 }
 
 .color-picker > div {

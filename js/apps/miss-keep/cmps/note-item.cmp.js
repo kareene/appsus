@@ -21,11 +21,10 @@ export default {
             
             <component :is="note.type" :info="note.info" @checked="saveNotes"></component> 
             
-            <div class="color-picker-container">
-                <color-picker @color="changeNoteStyle(note.id, 'color', $event)"
-                    :currColor="note.style.color" :class="{ reveal: isShowColors }"
-                ></color-picker>
-            </div>
+            
+            <color-picker @color="changeNoteStyle(note.id, 'color', $event)"
+                :currColor="note.style.color" :class="{ reveal: isShowColors }"
+            ></color-picker>
             <section class="flex align-center space-between">
                 <div class="note-type-display"><i :class="noteTypeIcon"></i></div>
                 <div class="note-btn-container show-on-hover">

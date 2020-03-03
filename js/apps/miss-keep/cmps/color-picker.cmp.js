@@ -1,11 +1,13 @@
 export default {
     template: `
-        <section class="color-picker">
-            <template  v-for="(color, idx) in colors">
-                <div :class="{ marked: color === currColor }" :style="{ backgroundColor: color }"
-                    @click="pickColor(color)"></div>
-            </template>
-        </section>
+        <div class="color-picker-container">
+            <section class="color-picker">
+                <template  v-for="(color, idx) in colors">
+                    <div :class="{ marked: color === currColor }" :style="{ backgroundColor: color }"
+                        @click="pickColor(color)"></div>
+                </template>
+            </section>
+        </div>
     `,
     props: ['currColor'],
     data() {
